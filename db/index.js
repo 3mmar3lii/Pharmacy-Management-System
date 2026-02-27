@@ -2,11 +2,12 @@ const mongoose = require("mongoose");
 
 async function ConnectToDB() {
   try {
-    await mongoose.connect(`mongodb://127.0.0.1:27017/FacultySystemV2`);
+    if (!process.env.MONGO_URL) {
+      console.log("Missing Important mongo url to connect !");
+    }
+    await mongoose.connect(process.env.MONGO_URL);
     console.log(`✅ MongoDB Connected`);
-    console.log("");
   } catch (error) {
-    console.log("");
     console.error(`❌ Error: ${error.message}`);
     process.exit(1);
   }
