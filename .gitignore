@@ -1,0 +1,20 @@
+# Node modules
+node_modules/
+
+
+# Environment variables
+.env
+.env.local
+
+
+# IDE folders
+.vscode/
+
+
+
+# Uploaded files (if using multer local storage)
+uploads/
+
+
+# Database local files (if any local dumps)
+data/
