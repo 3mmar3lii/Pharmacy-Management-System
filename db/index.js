@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 async function ConnectToDB() {
   try {
-    await mongoose.connect(`mongodb://127.0.0.1:27017/FacultySystemV2`);
+    await mongoose.connect(`mongodb+srv://AliElgendy:Pharmacy95System@cluster0.mq9ox9m.mongodb.net/Pharmacy?retryWrites=true&w=majority&appName=pharmacy-api`);
     console.log(`✅ MongoDB Connected`);
     console.log("");
   } catch (error) {
