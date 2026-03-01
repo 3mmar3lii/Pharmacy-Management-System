@@ -2,11 +2,12 @@ const mongoose = require("mongoose");
 
 async function ConnectToDB() {
   try {
-    await mongoose.connect(`mongodb+srv://AliElgendy:Pharmacy95System@cluster0.mq9ox9m.mongodb.net/Pharmacy?retryWrites=true&w=majority&appName=pharmacy-api`);
+    if (!process.env.MONGO_URL) {
+      console.log("Missing Important mongo url to connect !");
+    }
+    await mongoose.connect(process.env.MONGO_URL);
     console.log(`✅ MongoDB Connected`);
-    console.log("");
   } catch (error) {
-    console.log("");
     console.error(`❌ Error: ${error.message}`);
     process.exit(1);
   }
