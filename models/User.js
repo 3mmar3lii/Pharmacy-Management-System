@@ -20,8 +20,8 @@ const userSchema = new mongoose.Schema(
       validate: {
         validator: function (e) {
           //return /^[a-zA-Z]{3,5}[0-9]{3}(@)(gmail|yahoo|linkedin)(.com)/.test(e);
-        }
-      }
+        },
+      },
     },
     firstName: {
       type: String,
@@ -39,22 +39,35 @@ const userSchema = new mongoose.Schema(
     },
     role: {
       type: String,
-      enum: ["admin", "user","Pharmacist"],
+      enum: ["admin", "user", "pharmacist", "supplier"],
       required: true,
-      default:"user"
+      default: "user",
+    },
+    phone: {
+      type: String,
+      trim: true,
+    },
+    address: {
+      street: { type: String, trim: true },
+      city: { type: String, trim: true },
+      state: { type: String, trim: true },
+      zipCode: { type: String, trim: true },
+    },
+    profileImage: {
+      type: String,
+      default: "default-profile.png",
     },
   },
   { timestamps: true },
 );
 
-
-// hash password 
+// hash password
 userSchema.pre("save", async function () {
   if (!this.isModified("password")) return;
   const salt = await bcrypt.genSalt(10);
   const hashedPassword = await bcrypt.hash(this.password, salt);
   this.password = hashedPassword;
-})
+});
 const UserModel = mongoose.model("User", userSchema);
 
 module.exports = UserModel;
