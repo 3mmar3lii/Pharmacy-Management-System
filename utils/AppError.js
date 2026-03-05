@@ -3,7 +3,7 @@ module.exports = class AppError extends Error {
     super(message);
     this.message = message;
     this.statusCode = status;
-    this.statusMsg = String(status).startsWith("4") ? "fail" : "success";
+    this.statusMsg = String(status).startsWith("4") ? "fail" : "error";
     Error.captureStackTrace(this, this.constructor);
   }
 };
