@@ -1,0 +1,337 @@
+================================================================================
+         PHARMACY MANAGEMENT SYSTEM - MVP REQUIREMENTS ANALYSIS
+================================================================================
+         Prioritized from MOST CRITICAL to LEAST CRITICAL
+         Tech Stack: Node.js + Express + MongoDB + Angular
+================================================================================
+
+
+SYSTEM OVERVIEW
+===============
+  User/Pharmacist --> Login --> Dashboard
+  Dashboard connects to:
+    - Medicine Inventory (core)
+    - Sales & POS (revenue)
+    - Purchase Orders (restocking)
+    - Customers/Patients
+    - Suppliers
+    - Reports & Analytics
+    - Settings
+
+  Data Flow:
+    Purchase Orders --> restock --> Inventory
+    Sales --> reduce stock --> Inventory
+    Sales --> history --> Reports
+    Inventory --> expiry/low stock --> Dashboard Alerts
+
+
+WHAT ALREADY EXISTS IN CODEBASE
+===============================
+  [DONE] User model (username, email, password, role)     models/User.js
+  [DONE] Login (email + password -> JWT)                  controllers/authController.js
+  [DONE] Update password                                  controllers/authController.js
+  [DONE] JWT auth middleware                              middlewares/authMiddleware.js
+  [DONE] Role-based access (restrictTo)                   middlewares/authMiddleware.js
+  [DONE] Global error handler                             middlewares/errorMiddleware.js
+  [DONE] Custom AppError class                            utils/AppError.js
+
+
+================================================================================
+MODULE 1 - AUTHENTICATION & USER MANAGEMENT
+Priority: CRITICAL (everything depends on it)
+================================================================================
+
+WHAT IT DOES:
+  Controls who can access the system and what they can do.
+
+HOW IT WORKS:
+  1. User fills Login Form
+  2. POST /api/v1/users/login
+  3. Server checks email + password (bcrypt compare)
+  4. Returns JWT token
+  5. Token stored on client (localStorage)
+  6. Every request sends token in Authorization header
+  7. authMiddleware verifies token, injects userId + role
+  8. restrictTo('admin') blocks non-admin from protected routes
+
+REQUIREMENTS:
+  F1.1  Register new user       Admin creates staff accounts (pharmacist, cashier). No public signup.
+  F1.2  Login                   Email + password -> JWT token. [DONE]
+  F1.3  Update password         Authenticated user changes own password. [DONE]
+  F1.4  Role-based access       Roles: admin, pharmacist, cashier. Admin = full access.
+  F1.5  User profile            View/edit own profile (name, email, phone).
+  F1.6  Manage users (Admin)    List, activate/deactivate, change roles.
+  F1.7  Logout                  Clear token from client-side.
+
+TO BUILD:
+  [ ] Register endpoint (admin-only)
+  [ ] Get current user profile
+  [ ] Update user profile
+  [ ] List all users (admin)
+  [ ] Deactivate/activate user (admin)
+  [ ] Expand roles to: admin, pharmacist, cashier
+
+
+================================================================================
+MODULE 2 - MEDICINE / INVENTORY MANAGEMENT
+Priority: CRITICAL (core business logic)
+================================================================================
+
+WHAT IT DOES:
+  Tracks every medicine: what you have, how much, when it expires, when to reorder.
+
+HOW IT WORKS:
+  1. Admin/Pharmacist adds Medicine -> stored in DB
+  2. System tracks quantity in real-time
+  3. quantity < reorder level -> Low Stock Alert
+  4. expiry date within 30 days -> Expiry Alert
+  5. Every sale reduces qty automatically
+  6. Every purchase order increases qty automatically
+
+REQUIREMENTS:
+  F2.1   Add medicine           Name, generic, category, manufacturer, batch#, barcode,
+                                cost price, selling price, qty, reorder level, expiry, image.
+  F2.2   Edit medicine          Update any field.
+  F2.3   Delete medicine        Soft-delete (mark inactive, keep in DB).
+  F2.4   Search & filter        By name/barcode. Filter: category, stock, expiry status.
+  F2.5   View details           Full details page.
+  F2.6   List medicines         Paginated table, sortable.
+  F2.7   Low stock alerts       Flags qty <= reorderLevel.
+  F2.8   Expiry alerts          Flags expiring within 30/60/90 days.
+  F2.9   Categories CRUD        Antibiotics, Painkillers, Vitamins, etc.
+  F2.10  Stock adjustment       Manual corrections with reason (damaged, lost, returned).
+
+DATA MODEL - Medicine:
+  name             String     Required
+  genericName      String
+  category         ObjectId   -> Category
+  manufacturer     String
+  batchNumber      String
+  barcode          String     Unique
+  unitCostPrice    Number     What you paid
+  sellingPrice     Number     What customer pays
+  quantity         Number     Current stock
+  reorderLevel     Number     Alert threshold
+  expiryDate       Date       Required
+  description      String
+  image            String     File path
+  isActive         Boolean    Default: true
+  createdBy        ObjectId   -> User
+  timestamps       Auto
+
+
+================================================================================
+MODULE 3 - SALES & POINT OF SALE (POS)
+Priority: CRITICAL (revenue generation)
+================================================================================
+
+WHAT IT DOES:
+  Handles selling medicines. Creates invoices, reduces stock, records transactions.
+
+HOW IT WORKS:
+  1. Cashier opens POS -> Searches/scans medicine
+  2. Adds items to cart (medicine + quantity)
+  3. System calculates: subtotal, discount, tax, total
+  4. Customer pays (cash / card / insurance)
+  5. Invoice generated with unique number
+  6. Stock quantity reduced automatically
+
+REQUIREMENTS:
+  F3.1  Create sale            Select medicines, quantities, discount, payment method.
+  F3.2  Auto stock deduction   Confirmed sale -> reduce medicine qty.
+  F3.3  Invoice generation     Unique invoice#, date, items, totals.
+  F3.4  Sales history          List past sales with date filters.
+  F3.5  Sale details           Full breakdown of any past sale.
+  F3.6  Daily summary          Total amount + transaction count today.
+  F3.7  Return / Refund        Process returns, restore stock, refund.
+  F3.8  Payment methods        Cash, Card, Insurance.
+  F3.9  Discount               Percentage or fixed per item or invoice.
+
+DATA MODEL - Sale:
+  invoiceNumber    String     Unique, auto-generated
+  customer         ObjectId   -> Customer (optional, walk-in)
+  items            Array      [{medicine, quantity, unitPrice, discount, total}]
+  subtotal         Number
+  totalDiscount    Number
+  tax              Number
+  grandTotal       Number
+  paymentMethod    Enum       cash, card, insurance
+  paidAmount       Number
+  changeAmount     Number
+  status           Enum       completed, returned, partial-return
+  soldBy           ObjectId   -> User
+  timestamps       Auto
+
+
+================================================================================
+MODULE 4 - PURCHASE ORDERS & SUPPLIER MANAGEMENT
+Priority: HIGH (keeps inventory restocked)
+================================================================================
+
+WHAT IT DOES:
+  Manages ordering new stock from suppliers and tracks incoming goods.
+
+HOW IT WORKS:
+  1. See low stock alert -> Create Purchase Order for supplier
+  2. Add medicines + quantities needed
+  3. Status: Pending -> Approved -> Ordered -> Received
+  4. When received: stock qty auto-increased
+
+REQUIREMENTS:
+  F4.1  Add supplier           Name, contact, phone, email, address.
+  F4.2  Edit/delete supplier   Manage supplier info.
+  F4.3  Create purchase order  Select supplier + medicines + quantities + cost prices.
+  F4.4  Track PO status        Pending -> Approved -> Ordered -> Received.
+  F4.5  Receive stock          Mark PO received, auto-increase qty.
+  F4.6  Purchase history       List past POs with filters.
+
+DATA MODEL - Supplier:
+  name, contact, phone, email, address, isActive, timestamps
+
+DATA MODEL - PurchaseOrder:
+  poNumber         String     Unique, auto-generated
+  supplier         ObjectId   -> Supplier
+  items            Array      [{medicine, quantity, costPrice, total}]
+  totalAmount      Number
+  status           Enum       pending, approved, ordered, received
+  notes            String
+  createdBy        ObjectId   -> User
+  receivedBy       ObjectId   -> User
+  receivedAt       Date
+  timestamps       Auto
+
+
+================================================================================
+MODULE 5 - CUSTOMER / PATIENT MANAGEMENT
+Priority: HIGH (loyalty & purchase history)
+================================================================================
+
+REQUIREMENTS:
+  F5.1  Add customer              Name, phone, email, address.
+  F5.2  Edit/delete customer      Manage customer info.
+  F5.3  Search customers          By name or phone.
+  F5.4  Purchase history          All past purchases by customer.
+  F5.5  Balance/credit            Track outstanding balance.
+
+DATA MODEL - Customer:
+  name, phone (unique), email, address, balance (default:0), isActive, timestamps
+
+
+================================================================================
+MODULE 6 - DASHBOARD & ANALYTICS
+Priority: MEDIUM (business insights)
+================================================================================
+
+REQUIREMENTS:
+  F6.1  Summary cards            Sales today, total medicines, low stock, expiring soon.
+  F6.2  Recent sales             Last 10 sales with amount/time.
+  F6.3  Low stock list           Medicines below reorder level.
+  F6.4  Expiring soon list       Medicines expiring within 30 days.
+  F6.5  Sales chart              Daily/weekly/monthly trend.
+  F6.6  Top-selling medicines    Top 10 by quantity sold.
+
+
+================================================================================
+MODULE 7 - REPORTS
+Priority: MEDIUM (business management & accounting)
+================================================================================
+
+REQUIREMENTS:
+  F7.1  Sales report             Filter by date range. All sales + totals.
+  F7.2  Inventory report         Current stock levels, values, status.
+  F7.3  Expiry report            Medicines expiring within timeframe.
+  F7.4  Purchase report          All POs in a date range.
+  F7.5  Profit report            Revenue - cost = profit per period.
+  F7.6  Export                   PDF or Excel.
+
+
+================================================================================
+MODULE 8 - SETTINGS & CONFIGURATION
+Priority: MEDIUM (system administration)
+================================================================================
+
+REQUIREMENTS:
+  F8.1  Pharmacy info            Name, address, phone, logo, license#.
+  F8.2  Tax settings             Tax percentage on sales.
+  F8.3  Invoice settings         Prefix, starting number, footer text.
+  F8.4  Currency settings        Currency symbol and format.
+  F8.5  Backup                   Database backup/restore.
+
+
+================================================================================
+NON-FUNCTIONAL REQUIREMENTS
+================================================================================
+
+  Security       Passwords hashed (bcrypt). JWT. HTTPS. Input validation.
+  Performance    API response < 500ms. Pagination max 50/page.
+  Scalability    MongoDB indexing on barcode, name, category.
+  Usability      Mobile-responsive. Clear errors. Loading states.
+  Reliability    Frontend + backend validation. Soft-delete.
+  Audit Trail    createdBy, updatedBy, timestamps on all records.
+
+
+================================================================================
+FULL API ROUTE STRUCTURE
+================================================================================
+
+  POST   /api/v1/users/login                 [EXISTS]
+  POST   /api/v1/users/register              (admin-only)
+  GET    /api/v1/users/me                    (profile)
+  PATCH  /api/v1/users/me                    (update profile)
+  POST   /api/v1/users/update-password       [EXISTS]
+  GET    /api/v1/users/                      (admin: list all)
+  PATCH  /api/v1/users/:id/status            (admin: toggle active)
+
+  GET    /api/v1/medicines/                  (list+search+filter)
+  POST   /api/v1/medicines/                  (add)
+  GET    /api/v1/medicines/:id               (details)
+  PATCH  /api/v1/medicines/:id               (edit)
+  DELETE /api/v1/medicines/:id               (soft-delete)
+  GET    /api/v1/medicines/low-stock         (alerts)
+  GET    /api/v1/medicines/expiring          (alerts)
+  POST   /api/v1/medicines/:id/adjust-stock  (manual adjust)
+
+  CRUD   /api/v1/categories/
+  CRUD   /api/v1/suppliers/
+  CRUD   /api/v1/customers/
+  GET    /api/v1/customers/:id/purchases
+
+  POST   /api/v1/sales/                      (create)
+  GET    /api/v1/sales/                      (list)
+  GET    /api/v1/sales/:id                   (details)
+  POST   /api/v1/sales/:id/return            (refund)
+  GET    /api/v1/sales/summary/today
+
+  POST   /api/v1/purchase-orders/            (create)
+  GET    /api/v1/purchase-orders/            (list)
+  GET    /api/v1/purchase-orders/:id         (details)
+  PATCH  /api/v1/purchase-orders/:id/status  (update)
+  POST   /api/v1/purchase-orders/:id/receive (receive stock)
+
+  GET    /api/v1/dashboard/summary
+  GET    /api/v1/dashboard/sales-chart
+  GET    /api/v1/dashboard/top-selling
+
+  GET    /api/v1/reports/sales
+  GET    /api/v1/reports/inventory
+  GET    /api/v1/reports/expiry
+  GET    /api/v1/reports/purchases
+  GET    /api/v1/reports/profit
+
+  GET    /api/v1/settings/
+  PATCH  /api/v1/settings/                   (admin-only)
+
+
+================================================================================
+MVP BUILD ORDER
+================================================================================
+
+  Phase 1  Auth + Inventory + Categories          Week 1-2
+  Phase 2  Sales/POS + Customer Management        Week 3-4
+  Phase 3  Purchase Orders + Suppliers             Week 5
+  Phase 4  Dashboard + Reports                     Week 6
+  Phase 5  Settings + Polish + Testing             Week 7
+
+================================================================================
+                          END OF REQUIREMENTS
+================================================================================
