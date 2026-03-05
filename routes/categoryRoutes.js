@@ -1,8 +1,11 @@
 const express = require("express");
 const categoryController = require("../controllers/categoryController");
 const authMiddleware = require("../middlewares/authMiddleware");
+const subCategoryRoutes = require("./subCategoryRoutes");
 
 const router = express.Router();
+
+router.use("/:categoryId/subcategories", subCategoryRoutes);
 
 router
     .route("/")
