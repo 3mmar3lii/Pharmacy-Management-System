@@ -2,64 +2,64 @@ const mongoose = require("mongoose");
 
 const medicineSchema = new mongoose.Schema(
 {
-  name: {
-    type: String,
-    required: [true, "Medicine name is required"],
-    trim: true
+    nameEn: {
+      type: String,
+      required: [true, "English name is required"],
+      trim: true,
+      index: true,
+    },
+    nameAr: {
+      type: String,
+      required: [true, "Arabic name is required"],
+      trim: true,
+      index: true,
+    },
+    price: {
+      type: Number,
+      required: [true, "Price is required"],
+      min: [0, "Price cannot be negative"],
+    },
+    quantity: {
+      type: Number,
+      required: [true, "Quantity is required"],
+      min: [0, "Quantity cannot be negative"],
+      default: 0,
+    },
+    description: {
+      type: String,
+      required: [true, "Description is required"],
+    },
+    image: {
+      type: String,
+      default: "default-medicine.png",
+    },
+    category: {
+      type: [mongoose.Schema.Types.ObjectId],
+      ref: "Category",
+      required: [true, "Category is required"],
+    },
+    brand: {
+      type: String,
+      required: [true, "Brand is required"],
+      trim: true,
+    },
+    expiryDate: {
+      type: Date,
+    },
+    supplier: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Supplier",
+    },
+    requiresPrescription: {
+      type: Boolean,
+      default: false,
+    },
+    discount: {
+      type: Number,
+      default: 0,
+    },
   },
-
-  description: {
-    type: String,
-    required: [true, "Description is required"]
-  },
-
-  price: {
-    type: Number,
-    required: [true, "Price is required"],
-    min: 0
-  },
-
-  quantity: {
-    type: Number,
-    required: [true, "Quantity is required"],
-    min: 0
-  },
-
-  brand: {
-    type: String,
-    required: [true, "Brand is required"]
-  },
-
-  category: {
-    type: String,
-    required: [true, "Category is required"]
-  },
-
-  image: {
-    type: String
-  },
-
-  expiryDate: {
-    type: Date,
-    required: [true, "Expiry date is required"]
-  },
-
-  prescriptionRequired: {
-    type: Boolean,
-    default: false
-  },
-
-  manufacturer: {
-    type: String
-  },
-
-  lowStockThreshold: {
-    type: Number,
-    default: 10
-  }
-
-},
-{ timestamps: true }
+  { timestamps: true },
 );
 
 const MedicineModel = mongoose.model("Medicine", medicineSchema);
