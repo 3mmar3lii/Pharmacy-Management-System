@@ -2,6 +2,8 @@ const express = require("express");
 const cors = require("cors");
 const helmet = require("helmet");
 const userRoutes = require("./routes/userRoutes");
+const categoryRoutes = require("./routes/categoryRoutes");
+const subCategoryRoutes = require("./routes/subCategoryRoutes");
 const errorMiddleware = require("./middlewares/errorMiddleware");
 const app = express();
 
@@ -18,6 +20,8 @@ app.use(express.json({ limit: "10kb" }));
 
 // routes
 app.use("/api/v1/users", userRoutes);
+app.use("/api/v1/categories", categoryRoutes);
+app.use("/api/v1/subcategories", subCategoryRoutes);
 
 
 // error middleware
