@@ -1,6 +1,6 @@
+require("dotenv").config();
 const ConnectToDB = require("./db");
 const app = require("./index");
-require("dotenv").config();
 
 
 
@@ -10,3 +10,4 @@ ConnectToDB();
 app.listen(PORT, () => {
   console.log("✅ Server running");
 });
+console.log("Public Key:", process.env.IMAGEKIT_PUBLIC_KEY);

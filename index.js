@@ -19,6 +19,11 @@ app.use(express.json({ limit: "10kb" }));
 // routes
 app.use("/api/v1/users", userRoutes);
 
+//medicine routes
+
+const medicineRoutes = require("./routes/medicine");
+app.use("/api/v1/medicines", medicineRoutes);
+
 
 // error middleware
 app.use(errorMiddleware);
