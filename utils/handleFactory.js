@@ -19,6 +19,23 @@ const getOne = (Model, options) => {
   });
 };
 
+const getAll = (Model, options) => {
+  return catchAsync(async (req, res, next) => {
+    let query = Model.find();
+    query = populateOptions(options, query);
+    const doc = await query;
+
+    if (!doc || doc.length === 0) {
+      return next(new AppError("No documents found", 404));
+    }
+
+    res.status(200).json({
+      status: "success",
+      length: doc.length,
+      data: doc,
+    });
+  });
+};
 const createOne = (Model) => {
   return catchAsync(async (req, res, next) => {
     const doc = await Model.create(req.body);
@@ -59,5 +76,4 @@ const deleteOne = (Model) => {
   });
 };
 
-
-module.exports = { getOne, createOne, updateOne, deleteOne };
+module.exports = { getOne, createOne, updateOne, deleteOne, getAll };
