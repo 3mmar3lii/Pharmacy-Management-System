@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>شرح بنية الأقسام والأقسام الفرعية - للمبتدئين</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.8;
+            color: #333;
+            background-color: #f9f9fc;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        h1, h2, h3 {
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+        h2 {
+            margin-top: 40px;
+        }
+        code {
+            background-color: #f4f4f4;
+            color: #d63384;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.95em;
+            font-family: Consolas, monospace;
+        }
+        pre {
+            background-color: #1e1e1e;
+            color: #d4d4d4;
+            padding: 15px;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-size: 0.95em;
+            direction: ltr;
+            text-align: left;
+        }
+        .highlight {
+            color: #569cd6; /* Blue for keywords */
+        }
+        .string {
+            color: #ce9178; /* Orange for strings */
+        }
+        ul {
+            padding-right: 20px;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+        .note {
+            background-color: #e8f4f8;
+            border-right: 4px solid #3498db;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>دليل المبتدئين: بنية الأقسام (Categories) والأقسام الفرعية (Sub-Categories)</h1>
+    <p>مرحباً بك! في هذا الدليل سنشرح بالتفصيل الممل كيف قمنا ببناء ميزة <strong>الأقسام</strong> و <strong>الأقسام الفرعية</strong> في نظام إدارة الصيدلية الخاص بك باستخدام (Node.js و Express و MongoDB).</p>
+
+    <div class="note">
+        <strong>الفكرة العامة (Architecture):</strong><br>
+        المشروع مقسم إلى ثلاث طبقات رئيسية (MVC Architecture، بدون طبقة الـ View لأننا نبني API):
+        <ul>
+            <li><strong>Models (النماذج):</strong> وظيفتها التحدث مع قاعدة البيانات (MongoDB) وتحديد شكل البيانات.</li>
+            <li><strong>Controllers (المتحكمات):</strong> تحتوي على المنطق البرمجي (Business Logic) وتنفذ العمليات (إنشاء، قراءة، تحديث، حذف - CRUD).</li>
+            <li><strong>Routes (المسارات):</strong> تستقبل الطلبات من المستخدم (مثل الرابط الذي يكتبه في المتصفح أو التطبيق) وتوجهها إلى الـ Controller المناسب.</li>
+        </ul>
+    </div>
+
+    <h2>1. النماذج (Models)</h2>
+    <p>النموذج هو قالب البيانات الخاص بنا. لنرى كيف بنينا نموذج القسم الفرعي <code>SubCategory.js</code> كمثال:</p>
+
+    <pre><code><span class="highlight">const</span> mongoose = <span class="highlight">require</span>(<span class="string">"mongoose"</span>);
+
+<span class="highlight">const</span> subCategorySchema = <span class="highlight">new</span> mongoose.Schema({
+    nameEn: {
+        type: String,
+        required: [<span class="highlight">true</span>, <span class="string">"English name is required"</span>],
+        unique: <span class="highlight">true</span>,
+        trim: <span class="highlight">true</span>,
+    },
+    <span class="comment">// ... نفس الشيء للإسم العربي ...</span>
+    category: {
+        type: mongoose.Schema.ObjectId,
+        ref: <span class="string">"Category"</span>,
+        required: [<span class="highlight">true</span>, <span class="string">"SubCategory must belong to a parent category"</span>],
+    },
+}, { timestamps: <span class="highlight">true</span> });
+
+<span class="highlight">const</span> SubCategoryModel = mongoose.model(<span class="string">"SubCategory"</span>, subCategorySchema);
+<span class="highlight">module.exports</span> = SubCategoryModel;
+</code></pre>
+
+    <h3>شرح السطور:</h3>
+    <ul>
+        <li><code>mongoose.Schema(...)</code>: نقوم بإنشاء هيكل (Schema) يحدد البيانات المسموح إدخالها.</li>
+        <li><code>nameEn</code>: حقل لاسم القسم بالإنجليزي، نوعه نص (String)، إجباري (required)، وغير مكرر (unique)، ويتم مسح المسافات الزائدة منه (trim).</li>
+        <li><code>category</code>: <strong>هذا هو السطر الأهم!</strong> نوعه <code>ObjectId</code>، أي أنه يحمل "رقم تعريفي" (ID) لقسم رئيسي آخر من مجموعة <code>"Category"</code>. هذا هو ما يربط القسم الفرعي بالقسم الرئيسي (يسمى Relationships في قواعد البيانات).</li>
+        <li><code>timestamps: true</code>: يضيف تلقائياً وقت الإنشاء (createdAt) ووقت التحديث (updatedAt).</li>
+    </ul>
+
+    <h2>2. المتحكمات (Controllers)</h2>
+    <p>هنا نكتب الكود الذي يتم تنفيذه عندما يطلب المستخدم إضافة أو جلب بيانات. يوجد 5 وظائف أساسية في كل Controller (إضافة، جلب الكل، جلب عنصر واحد، تعديل، حذف).</p>
+    
+    <h3>مثال: دالة إضافة قسم فرعي (createSubCategory)</h3>
+    <pre><code><span class="highlight">exports</span>.createSubCategory = <span class="highlight">async</span> (req, res, next) =&gt; {
+    <span class="highlight">try</span> {
+        <span class="highlight">const</span> { nameEn, nameAr, category } = req.body;
+        
+        <span class="highlight">const</span> newSubCategory = <span class="highlight">await</span> SubCategoryModel.create({
+            nameEn,
+            nameAr,
+            category,
+        });
+
+        res.status(201).json({
+            status: <span class="string">"success"</span>,
+            data: { subcategory: newSubCategory },
+        });
+    } <span class="highlight">catch</span> (error) {
+        next(error); <span class="comment">// إرسال الخطأ ليتعامل معه النظام بناءً على برمجتنا</span>
+    }
+};</code></pre>
+
+    <h3>شرح السطور:</h3>
+    <ul>
+        <li><code>req.body</code>: نستخرج البيانات التي أرسلها المستخدم في جسم الطلب (مثل الاسم المعرب والإنجليزي ورقم القسم الرئيسي).</li>
+        <li><code>SubCategoryModel.create(...)</code>: نطلب من قاعدة البيانات إنشاء وحفظ هذا العنصر الجديد. نستخدم <code>await</code> لأن العملية تستغرق وقتاً (Asynchronous).</li>
+        <li><code>res.status(201).json(...)</code>: نرد على المستخدم برقم 201 (والذي يعني أنه تم الإنشاء بنجاح) ونرسل له البيانات التي تم حفظها.</li>
+    </ul>
+
+    <h2>3. المسارات (Routes)</h2>
+    <p>نستخدم الـ Routes لربط الروابط (URLs) بالدوال الموجودة في الـ Controllers.</p>
+
+    <pre><code><span class="highlight">const</span> router = express.Router({ mergeParams: <span class="highlight">true</span> });
+
+router
+    .route(<span class="string">"/"</span>)
+    .get(authMiddleware.AuthMiddleware, subCategoryController.getAllSubCategories)
+    .post(
+        authMiddleware.AuthMiddleware,
+        authMiddleware.restirctTo(<span class="string">"admin"</span>, <span class="string">"pharmacist"</span>),
+        subCategoryController.createSubCategory
+    );
+</code></pre>
+
+    <h3>شرح السطور:</h3>
+    <ul>
+        <li><code>mergeParams: true</code>: هذه الخاصية مهمة جداً للأقسام الفرعية! وهي تسمح للمسار بالوصول إلى المعرفات (IDs) الموجودة في المسار الأب (مثل معرف القسم الرئيسي <code>categoryId</code>).</li>
+        <li><code>.get(...)</code>: عندما يزور المستخدم الرابط بطريقة GET (لجلب البيانات).</li>
+        <li><code>.post(...)</code>: عندما يرسل المستخدم بيانات جديدة بطريقة POST (للإضافة).</li>
+        <li><code>authMiddleware.AuthMiddleware</code>: هذه <strong>حماية (Middleware)</strong>. تتأكد أن المستخدم مسجل الدخول ويمتلك Token صالح قبل أن تسمح له بالمرور.</li>
+        <li><code>restirctTo("admin", "pharmacist")</code>: حماية إضافية (Role-based access). تمنع أي شخص من الإضافة ما لم يكن "أدمن" أو "صيدلي" (مثلاً الكاشير لن يقدر على حذف أو إضافة قسم).</li>
+    </ul>
+
+    <h2>4. المسارات المتداخلة (Nested Routes)</h2>
+    <p>في الـ <code>categoryRoutes.js</code> أضفنا هذا السطر:</p>
+    <pre><code>router.use(<span class="string">"/:categoryId/subcategories"</span>, subCategoryRoutes);</code></pre>
+    <p><strong>ما فائدته؟</strong><br> 
+    هذا السطر يسمح لنا بعمل رابط متداخل. تخيل لو أن القسم الرئيسي (المسكنات) رقمه `123`. يمكننا الآن الدخول إلى الرابط:<br>
+    <code>GET /api/v1/categories/123/subcategories</code><br>
+    وسيقوم النظام تلقائياً بإرجاع جميع الأقسام الفرعية التابعة للمسكنات فقط، بدلاً من إرجاع كل الأقسام الفرعية في النظام.</p>
+
+    <div class="note">
+        <strong>الخلاصة:</strong><br>
+        أنت الآن كمبرمج تملك نظام متكامل (CRUD) للأقسام والأقسام الفرعية. البيانات محمية، الروابط منظمة، وقواعد البيانات مترابطة باستخدام (References).
+    </div>
+
+</div>
+
+</body>
+</html>
