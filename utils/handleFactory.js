@@ -19,6 +19,8 @@ const getOne = (Model, options) => {
   });
 };
 
+
+
 const getAll = (Model, options) => {
   return catchAsync(async (req, res, next) => {
     let query = Model.find();
@@ -76,4 +78,5 @@ const deleteOne = (Model) => {
   });
 };
 
-module.exports = { getOne, createOne, updateOne, deleteOne, getAll };
+
+module.exports = { getOne, createOne, updateOne, deleteOne ,getAll};
