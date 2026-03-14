@@ -23,6 +23,11 @@ app.use("/api/v1/users", userRoutes);
 app.use("/api/v1/categories", categoryRoutes);
 app.use("/api/v1/subcategories", subCategoryRoutes);
 
+//medicine routes
+
+const medicineRoutes = require("./routes/medicine");
+app.use("/api/v1/medicines", medicineRoutes);
+
 
 // error middleware
 app.use(errorMiddleware);

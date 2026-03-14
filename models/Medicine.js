@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
-const medcineSchema = new mongoose.Schema(
-  {
+const medicineSchema = new mongoose.Schema(
+{
     nameEn: {
       type: String,
       required: [true, "English name is required"],
@@ -62,6 +62,6 @@ const medcineSchema = new mongoose.Schema(
   { timestamps: true },
 );
 
-const MedcineModel = mongoose.model("Medcine", medcineSchema);
+const MedicineModel = mongoose.model("Medicine", medicineSchema);
 
-module.exports = MedcineModel;
+module.exports = MedicineModel;
