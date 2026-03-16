@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const medicineSchema = new mongoose.Schema(
-{
+  {
     nameEn: {
       type: String,
       required: [true, "English name is required"],
@@ -57,6 +57,15 @@ const medicineSchema = new mongoose.Schema(
     discount: {
       type: Number,
       default: 0,
+    },
+    createdBy: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+    },
+    updatedBy: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
     },
   },
   { timestamps: true },

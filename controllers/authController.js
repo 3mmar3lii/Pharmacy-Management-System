@@ -1,6 +1,43 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const catchAsync = require("../utils/catchAsync");
 const UserModel = require("../models/User");
+
+const signup = async (req, res) => {
+  try {
+    const { username, email, password, firstName, lastName, phone, address, role } = req.body;
+    
+    const existingUser = await UserModel.findOne({ $or: [{ email }, { username }] });
+    if (existingUser) {
+      return res.status(400).json({ msg: "User with this email or username already exists" });
+    }
+
+    const newUser = await UserModel.create({
+      username,
+      email,
+      password,
+      firstName,
+      lastName,
+      phone,
+      address,
+      role: role 
+    });
+
+    const token = jwt.sign(
+      { id: newUser._id, role: newUser.role },
+      process.env.JSON_WEBTOKEN_KEY,
+    );
+    
+    newUser.token = token;
+    await newUser.save();
+
+    res.status(201).json({ token, user: newUser });
+
+  } catch (err) {
+    console.log("Signup error:", err);
+    return res.status(500).json({ msg: "Server error during signup" });
+  }
+};
 
 const login = async (req, res) => {
   try {
@@ -22,6 +59,10 @@ const login = async (req, res) => {
       { id: user._id, role: user.role },
       process.env.JSON_WEBTOKEN_KEY,
     );
+    
+    await UserModel.findByIdAndUpdate(user._id, { token });
+    user.token = token;
+
     res.status(200).json({ token });
   } catch (err) {
     console.log(err);
@@ -55,7 +96,11 @@ const updatePassword = async (req, res) => {
       { id: user._id, role: user.role },
       process.env.JSON_WEBTOKEN_KEY,
     );
-    res.status(200).json({ token });
+    
+    user.token = token;
+    await user.save();
+
+    res.status(200).json({ token, user });
   } catch (err) {
     console.log("Error while update the password", err);
     res.status(500).json({ msg: `Server error ${err}` });
@@ -63,4 +108,5 @@ const updatePassword = async (req, res) => {
 };
 
 
-module.exports = { login, updatePassword };
+
+module.exports = { login, updatePassword, signup };
