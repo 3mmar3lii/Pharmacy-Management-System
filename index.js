@@ -5,6 +5,11 @@ const userRoutes = require("./routes/userRoutes");
 const categoryRoutes = require("./routes/categoryRoutes");
 const subCategoryRoutes = require("./routes/subCategoryRoutes");
 const errorMiddleware = require("./middlewares/errorMiddleware");
+// cart and order routes
+const cartRoutes = require("./routes/cartRoute");
+const orderRoutes = require("./routes/orderRoute");
+//medicine routes
+const medicineRoutes = require("./routes/medicine");
 const app = express();
 
 // static files
@@ -22,11 +27,12 @@ app.use(express.json({ limit: "10kb" }));
 app.use("/api/v1/users", userRoutes);
 app.use("/api/v1/categories", categoryRoutes);
 app.use("/api/v1/subcategories", subCategoryRoutes);
-
-//medicine routes
-
-const medicineRoutes = require("./routes/medicine");
+app.use("/api/v1/cart", cartRoutes);
+app.use("/api/v1/orders", orderRoutes);
 app.use("/api/v1/medicines", medicineRoutes);
+
+
+
 
 
 // error middleware
