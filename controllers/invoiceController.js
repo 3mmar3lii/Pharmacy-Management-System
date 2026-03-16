@@ -44,8 +44,8 @@ exports.generateInvoice = catchAsync(async (req, res, next) => {
   const invoice = await Invoice.create({
     order: order._id,
     invoiceNumber: `INV-${Date.now()}`,
-    totalAmount: order.totalPrice,
-    paymentMethod: order.paymentMethod,
+    totalAmount: order.totalAmount,
+    paymentMethod: order.paymentMethodType === 'card' ? 'credit_card' : 'cash',
     issuedBy: req.user.id
   });
 
@@ -64,11 +64,11 @@ exports.payInvoice = catchAsync(async (req, res, next) => {
     return next(new AppError("Invoice not found", 404));
   }
 
-  if (invoice.paymentStatus === "PAID") {
+  if (invoice.paymentStatus === "paid") {
     return next(new AppError("Invoice already paid", 400));
   }
 
-  invoice.paymentStatus = "PAID";
+  invoice.paymentStatus = "paid";
 
   await invoice.save();
 

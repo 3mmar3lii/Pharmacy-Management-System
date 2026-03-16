@@ -14,10 +14,14 @@ const calcTotalCartPrice = (cart) => {
 };
 
 exports.addProductToCart = catchAsync(async (req, res, next) => {
-  const { productId, quantity } = req.body;
+  const { productId, quantity, prescription } = req.body;
   const product = await Medicine.findById(productId);
   if (!product) {
     return next(new AppError(`No product for this id ${productId}`, 404));
+  }
+  
+  if (product.requiresPrescription && !prescription) {
+    return next(new AppError(`This product requires a prescription to be added to the cart`, 400));
   }
   
   // 1) Get Cart for logged user
@@ -27,7 +31,7 @@ exports.addProductToCart = catchAsync(async (req, res, next) => {
     // create cart for logged user with product
     cart = await Cart.create({
       user: req.userId,
-      cartItems: [{ product: productId, price: product.price, quantity: quantity || 1 }],
+      cartItems: [{ product: productId, price: product.price, quantity: quantity || 1, prescription: prescription || undefined }],
     });
   } else {
     // product exists in cart, update quantity
@@ -41,7 +45,7 @@ exports.addProductToCart = catchAsync(async (req, res, next) => {
       cart.cartItems[productIndex] = cartItem;
     } else {
       // product not exists in cart, push product to cartItems array
-      cart.cartItems.push({ product: productId, price: product.price, quantity: quantity || 1 });
+      cart.cartItems.push({ product: productId, price: product.price, quantity: quantity || 1, prescription: prescription || undefined });
     }
   }
 

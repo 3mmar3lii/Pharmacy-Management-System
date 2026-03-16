@@ -8,6 +8,10 @@ const cartSchema = new mongoose.Schema(
           type: mongoose.Schema.ObjectId,
           ref: "Medicine",
         },
+        prescription: {
+          type: mongoose.Schema.ObjectId,
+          ref: "Prescription",
+        },
         quantity: {
           type: Number,
           default: 1,

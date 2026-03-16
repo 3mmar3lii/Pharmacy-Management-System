@@ -27,7 +27,7 @@ exports.createCashOrder = catchAsync(async (req, res, next) => {
     user: req.userId,
     cartItems: cart.cartItems,
     shippingAddress: req.body.shippingAddress,
-    totalOrderPrice,
+    totalAmount: totalOrderPrice,
   });
 
   // 4) After creating order, decrement product quantity

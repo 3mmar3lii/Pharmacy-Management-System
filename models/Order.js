@@ -13,6 +13,10 @@ const orderSchema = new mongoose.Schema(
           type: mongoose.Schema.ObjectId,
           ref: "Medicine",
         },
+        prescription: {
+          type: mongoose.Schema.ObjectId,
+          ref: "Prescription",
+        },
         quantity: Number,
         price: Number,
       },
@@ -25,7 +29,7 @@ const orderSchema = new mongoose.Schema(
       type: Number,
       default: 0,
     },
-    totalOrderPrice: {
+    totalAmount: {
       type: Number,
     },
     paymentMethodType: {
@@ -45,7 +49,7 @@ const orderSchema = new mongoose.Schema(
     deliveredAt: Date,
     status: {
       type: String,
-      enum: ["Pending", "Processing", "Shipped", "Delivered", "Cancelled"],
+      enum: ["Pending", "Processing", "APPROVED", "Delivered", "Cancelled"],
       default: "Pending",
     },
     shippingAddress: {
@@ -55,7 +59,7 @@ const orderSchema = new mongoose.Schema(
       postalCode: String,
     },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 module.exports = mongoose.model("Order", orderSchema);
