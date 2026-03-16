@@ -5,6 +5,7 @@ const userRoutes = require("./routes/userRoutes");
 const categoryRoutes = require("./routes/categoryRoutes");
 const subCategoryRoutes = require("./routes/subCategoryRoutes");
 const errorMiddleware = require("./middlewares/errorMiddleware");
+const invoiceRoutes = require("./routes/invoice")
 const app = express();
 
 // static files
@@ -22,6 +23,7 @@ app.use(express.json({ limit: "10kb" }));
 app.use("/api/v1/users", userRoutes);
 app.use("/api/v1/categories", categoryRoutes);
 app.use("/api/v1/subcategories", subCategoryRoutes);
+app.use("/api/v1/invoices", invoiceRoutes);
 
 //medicine routes
 
