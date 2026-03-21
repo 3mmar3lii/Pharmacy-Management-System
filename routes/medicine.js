@@ -1,19 +1,58 @@
 const express = require("express")
 const router = require("express").Router();
 const upload = require("../middlewares/upload");
-const {addMedicine,getAllMedicines, getMedicine, updateMedicine, deleteMedicine} = require("../controllers/medicine");
+const authMiddleware = require("../middlewares/authMiddleware");
+const {
+  addMedicine,
+  getAllMedicines,
+  getMedicine,
+  updateMedicine,
+  deleteMedicine,
+  getLowStockAlerts,
+  getExpiringMedicines,
+  adjustStock
+} = require("../controllers/medicine");
 
 // router.post("/", upload.single("image"), addMedicine);
 
 router
+  .route("/low-stock")
+  .get(authMiddleware.AuthMiddleware, getLowStockAlerts);
+
+router
+  .route("/expiring")
+  .get(authMiddleware.AuthMiddleware, getExpiringMedicines);
+
+router
   .route("/")
-  .get(getAllMedicines) // get all medicines
-  .post(upload.single("image"), addMedicine); // create medicine
-  
+  .get(authMiddleware.AuthMiddleware, getAllMedicines)
+  .post(
+    authMiddleware.AuthMiddleware,
+    authMiddleware.restirctTo("admin", "pharmacist"),
+    upload.single("image"),
+    addMedicine
+  );
+
+router
+  .route("/:id/adjust-stock")
+  .post(
+    authMiddleware.AuthMiddleware,
+    authMiddleware.restirctTo("admin", "pharmacist"),
+    adjustStock
+  );
+
 router
   .route("/:id")
-  .get(getMedicine) // get single medicine
-  .patch(updateMedicine) // update medicine
-  .delete(deleteMedicine); // delete medicine
+  .get(authMiddleware.AuthMiddleware, getMedicine)
+  .patch(
+    authMiddleware.AuthMiddleware,
+    authMiddleware.restirctTo("admin", "pharmacist"),
+    updateMedicine
+  )
+  .delete(
+    authMiddleware.AuthMiddleware,
+    authMiddleware.restirctTo("admin"),
+    deleteMedicine
+  );
 
 module.exports = router;

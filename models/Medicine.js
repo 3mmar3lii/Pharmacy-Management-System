@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const medicineSchema = new mongoose.Schema(
-{
+  {
     nameEn: {
       type: String,
       required: [true, "English name is required"],
@@ -24,6 +24,12 @@ const medicineSchema = new mongoose.Schema(
       required: [true, "Quantity is required"],
       min: [0, "Quantity cannot be negative"],
       default: 0,
+    },
+    reorderLevel: {
+      type: Number,
+      required: [true, "Reorder level is required"],
+      min: [0, "Reorder level cannot be negative"],
+      default: 10,
     },
     description: {
       type: String,
@@ -58,9 +64,18 @@ const medicineSchema = new mongoose.Schema(
       type: Number,
       default: 0,
     },
+    isActive: {
+      type: Boolean,
+      default: true,
+    },
   },
   { timestamps: true },
 );
+
+medicineSchema.pre(/^find/, function (next) {
+  this.find({ isActive: { $ne: false } });
+  next();
+});
 
 const MedicineModel = mongoose.model("Medicine", medicineSchema);
 

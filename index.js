@@ -4,6 +4,7 @@ const helmet = require("helmet");
 const userRoutes = require("./routes/userRoutes");
 const categoryRoutes = require("./routes/categoryRoutes");
 const subCategoryRoutes = require("./routes/subCategoryRoutes");
+const supplierRoutes = require("./routes/supplierRoutes");
 const errorMiddleware = require("./middlewares/errorMiddleware");
 const app = express();
 
@@ -22,6 +23,7 @@ app.use(express.json({ limit: "10kb" }));
 app.use("/api/v1/users", userRoutes);
 app.use("/api/v1/categories", categoryRoutes);
 app.use("/api/v1/subcategories", subCategoryRoutes);
+app.use("/api/v1/suppliers", supplierRoutes);
 
 //medicine routes
 

@@ -67,6 +67,51 @@ const getMedicine = factory.getOne(Medicine);
 
 const updateMedicine = factory.updateOne(Medicine);
 
-const deleteMedicine = factory.deleteOne(Medicine);
+const deleteMedicine = catchAsync(async (req, res, next) => {
+  const doc = await Medicine.findByIdAndUpdate(req.params.id, { isActive: false }, { new: true });
+  if (!doc) {
+    return next(new AppError("No document found with this ID", 404));
+  }
+  res.status(204).json(null);
+});
 
-module.exports = {addMedicine, getAllMedicines, getMedicine, updateMedicine, deleteMedicine};
+const getLowStockAlerts = catchAsync(async (req, res, next) => {
+  const medicines = await Medicine.find({ $expr: { $lte: ["$quantity", "$reorderLevel"] } });
+  res.status(200).json({ status: "success", results: medicines.length, data: medicines });
+});
+
+const getExpiringMedicines = catchAsync(async (req, res, next) => {
+  const futureDate = new Date();
+  futureDate.setDate(futureDate.getDate() + 30);
+
+  const medicines = await Medicine.find({
+    expiryDate: { $lte: futureDate, $gte: new Date() }
+  });
+
+  res.status(200).json({ status: "success", results: medicines.length, data: medicines });
+});
+
+const adjustStock = catchAsync(async (req, res, next) => {
+  const { adjustment } = req.body;
+  if (adjustment === undefined) return next(new AppError("Adjustment value is required", 400));
+
+  const medicine = await Medicine.findById(req.params.id);
+  if (!medicine) return next(new AppError("Medicine not found", 404));
+
+  medicine.quantity += Number(adjustment);
+  if (medicine.quantity < 0) medicine.quantity = 0;
+
+  await medicine.save();
+  res.status(200).json({ status: "success", data: medicine });
+});
+
+module.exports = {
+  addMedicine,
+  getAllMedicines,
+  getMedicine,
+  updateMedicine,
+  deleteMedicine,
+  getLowStockAlerts,
+  getExpiringMedicines,
+  adjustStock
+};
