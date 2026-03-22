@@ -7,8 +7,6 @@ router.get("/", invoiceController.getAllInvoices);
 
 router.get("/:id", invoiceController.getInvoice);
 
-router.post("/generate/:orderId", invoiceController.generateInvoice);
-
 router.patch("/:id", invoiceController.updateInvoice);
 
 router.delete("/:id", invoiceController.deleteInvoice);

@@ -28,34 +28,6 @@ exports.updateInvoice = factory.updateOne(Invoice);
 
 exports.deleteInvoice = factory.deleteOne(Invoice);
 
-
-exports.generateInvoice = catchAsync(async (req, res, next) => {
-
-  const order = await Order.findById(req.params.orderId);
-
-  if (!order) {
-    return next(new AppError("Order not found", 404));
-  }
-
-  if (order.status !== "APPROVED") {
-    return next(new AppError("Order must be approved first", 400));
-  }
-
-  const invoice = await Invoice.create({
-    order: order._id,
-    invoiceNumber: `INV-${Date.now()}`,
-    totalAmount: order.totalAmount,
-    paymentMethod: order.paymentMethodType === 'card' ? 'credit_card' : 'cash',
-    issuedBy: req.user.id
-  });
-
-  res.status(201).json({
-    status: "success",
-    data: invoice
-  });
-
-});
-
 exports.payInvoice = catchAsync(async (req, res, next) => {
 
   const invoice = await Invoice.findById(req.params.id);

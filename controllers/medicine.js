@@ -51,7 +51,8 @@ let addMedicine = catchAsync(async (req, res, next) => {
     supplier,
     requiresPrescription,
     discount,
-    image: imageUrl
+    image: imageUrl,
+    createdBy: req.userId || req.body.createdBy
   });
 
   res.status(201).json({
