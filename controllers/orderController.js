@@ -4,6 +4,7 @@ const Medicine = require("../models/Medicine");
 const factory = require("../utils/handleFactory");
 const catchAsync = require("../utils/catchAsync");
 const AppError = require("../utils/AppError");
+const { createInvoiceForOrder } = require("../services/invoiceService");
 
 exports.createCashOrder = catchAsync(async (req, res, next) => {
   const taxPrice = 0;
@@ -78,14 +79,37 @@ exports.updateOrderStatus = catchAsync(async (req, res, next) => {
     );
   }
 
+  // Handle Inventory & Invoice if status is changing to APPROVED
+  let generatedInvoice = null;
+  if (req.body.status === "APPROVED" && order.status !== "APPROVED") {
+    // 1) Inventory Management Logic
+    if (order.cartItems && order.cartItems.length > 0) {
+      const bulkOption = order.cartItems.map((item) => ({
+        updateOne: {
+          filter: { _id: item.product },
+        },
+      }));
+      await Medicine.bulkWrite(bulkOption, {});
+    }
+
+    // 2) Invoice Creation Logic
+    generatedInvoice = await createInvoiceForOrder(order, req.userId);
+  }
+
+  // Update status based on request
   order.status = req.body.status || order.status;
   
+  // Maintain existing Delivered logic
   if (req.body.status === "Delivered") {
       order.isDelivered = true;
       order.deliveredAt = Date.now();
   }
 
   const updatedOrder = await order.save();
+
+  if (generatedInvoice) {
+    return res.status(200).json({ status: "success", data: updatedOrder, invoice: generatedInvoice });
+  }
 
   res.status(200).json({ status: "success", data: updatedOrder });
 });
