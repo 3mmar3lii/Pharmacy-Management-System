@@ -1,0 +1,272 @@
+[
+  {
+    "id": "88ff176a-8ffa-45dc-bdfd-bf543d6ae8da",
+    "nameEn": "Frozen Cotton",
+    "nameAr": "فرع SVoDO",
+    "categoryId": "60fe329d-575f-4bda-8e63-beb9b8529af6"
+  },
+  {
+    "id": "7e10e832-5027-4319-83ff-0f47d5082731",
+    "nameEn": "Modern Aluminum",
+    "nameAr": "فرع Crkuk",
+    "categoryId": "03e61208-02f5-4a03-961a-dab567fc88c0"
+  },
+  {
+    "id": "31b9f8f2-2814-4a73-8801-656e119489c7",
+    "nameEn": "Licensed Bronze",
+    "nameAr": "فرع AmRPo",
+    "categoryId": "46af9dd4-deff-479f-8449-6f43d21b1ceb"
+  },
+  {
+    "id": "8b9d7b6c-d8e1-46b0-a152-d43087991921",
+    "nameEn": "Ergonomic Aluminum",
+    "nameAr": "فرع owlaz",
+    "categoryId": "c1a761bf-afec-4825-bbb7-166c1579447c"
+  },
+  {
+    "id": "7dd4c32e-a09b-4e47-8c43-9e469c4c5774",
+    "nameEn": "Handmade Concrete",
+    "nameAr": "فرع nNZUN",
+    "categoryId": "40bd0445-b86c-4ebb-80c8-18606b5c1c24"
+  },
+  {
+    "id": "1b195676-d2cc-40b2-97f7-90fcfdd25bfd",
+    "nameEn": "Refined Granite",
+    "nameAr": "فرع ZoFNS",
+    "categoryId": "7d1b8b5b-f871-4cfa-845b-85b1b3f225bb"
+  },
+  {
+    "id": "dfb82df1-c7f1-4977-88bb-333be1b31652",
+    "nameEn": "Modern Ceramic",
+    "nameAr": "فرع DbuXe",
+    "categoryId": "ae64b1a0-5fbd-4a06-be6f-e3283ffa172a"
+  },
+  {
+    "id": "1c7627f7-1e7f-40be-8deb-91f58bb0ea61",
+    "nameEn": "Fantastic Bronze",
+    "nameAr": "فرع usnoY",
+    "categoryId": "ae64b1a0-5fbd-4a06-be6f-e3283ffa172a"
+  },
+  {
+    "id": "d1a68032-495f-4997-b196-8c25e86585ee",
+    "nameEn": "Electronic Plastic",
+    "nameAr": "فرع AJzkI",
+    "categoryId": "38ce87af-79da-41e6-8c5d-47c7eb17eb0f"
+  },
+  {
+    "id": "e100449c-93a7-4ef5-ad4e-f4ce5adf06d8",
+    "nameEn": "Gorgeous Bamboo",
+    "nameAr": "فرع CqUHJ",
+    "categoryId": "3818ea61-45f1-4766-a8c1-87122fd19f54"
+  },
+  {
+    "id": "6e46a308-09a6-4dc0-a2f8-f5922126af11",
+    "nameEn": "Handcrafted Wooden",
+    "nameAr": "فرع QLmhp",
+    "categoryId": "a5648360-6893-4eb2-bb61-cff8779d4daa"
+  },
+  {
+    "id": "68ce8cbf-6e2c-4951-9fcf-777ba1ac56fe",
+    "nameEn": "Incredible Wooden",
+    "nameAr": "فرع AVCZV",
+    "categoryId": "4f540f7c-5c46-41a8-98ee-8b8970ad27ff"
+  },
+  {
+    "id": "6617c00e-c9e7-4836-8fbd-b9ee8f580647",
+    "nameEn": "Tasty Granite",
+    "nameAr": "فرع XKvqK",
+    "categoryId": "c5b15380-b9d5-4944-8a74-c6ce66891e06"
+  },
+  {
+    "id": "c0219e53-8940-4934-a9fb-10ef7209b17d",
+    "nameEn": "Unbranded Plastic",
+    "nameAr": "فرع IZHZn",
+    "categoryId": "8cfa0d4d-ea33-4645-b613-f978604ca4d2"
+  },
+  {
+    "id": "5d635919-8e30-4f93-b833-8f1831d68d63",
+    "nameEn": "Tasty Bamboo",
+    "nameAr": "فرع HKsHJ",
+    "categoryId": "4f540f7c-5c46-41a8-98ee-8b8970ad27ff"
+  },
+  {
+    "id": "a1adf0ed-32e3-41c1-9966-45e8f0626513",
+    "nameEn": "Electronic Metal",
+    "nameAr": "فرع nhhFS",
+    "categoryId": "00164d79-8372-4c38-a84b-fe2c30938d76"
+  },
+  {
+    "id": "d1aff8da-b257-431a-81bb-26c8e89492de",
+    "nameEn": "Ergonomic Gold",
+    "nameAr": "فرع nTrGa",
+    "categoryId": "bef55d66-138f-4a57-b293-85270fbdc3da"
+  },
+  {
+    "id": "3a429726-d2cf-4a83-aa02-56ef16e197f5",
+    "nameEn": "Modern Rubber",
+    "nameAr": "فرع FUvdJ",
+    "categoryId": "bb6bf105-774f-48e7-b7cb-c2a4175d0373"
+  },
+  {
+    "id": "937d5dc6-2f4a-4514-a183-112ee5bb9144",
+    "nameEn": "Generic Plastic",
+    "nameAr": "فرع WFrcp",
+    "categoryId": "5c6c1a38-958d-4f49-8373-df8e94d94e36"
+  },
+  {
+    "id": "dfdfd204-00dc-453d-8a00-d4f2da6507e9",
+    "nameEn": "Soft Bamboo",
+    "nameAr": "فرع gCIiq",
+    "categoryId": "7d1b8b5b-f871-4cfa-845b-85b1b3f225bb"
+  },
+  {
+    "id": "a5907d90-2273-4147-9e1e-1f61f4e2b217",
+    "nameEn": "Small Rubber",
+    "nameAr": "فرع BSQTZ",
+    "categoryId": "dd533a98-0719-4bfe-b49d-da86835348e0"
+  },
+  {
+    "id": "c316da63-3d68-4b93-817e-ffccc40a1224",
+    "nameEn": "Practical Bronze",
+    "nameAr": "فرع sGlQw",
+    "categoryId": "46af9dd4-deff-479f-8449-6f43d21b1ceb"
+  },
+  {
+    "id": "7b68fb37-b9c2-423a-adf9-8e60591f4ea4",
+    "nameEn": "Elegant Aluminum",
+    "nameAr": "فرع DrVBY",
+    "categoryId": "833b03b5-91bb-4d37-b6d4-518d1e44d16e"
+  },
+  {
+    "id": "7db97d0d-00db-4376-9a02-9eefdf9b8f1c",
+    "nameEn": "Electronic Wooden",
+    "nameAr": "فرع qRDVP",
+    "categoryId": "f49f9555-d4f8-471c-8fe5-679864fbc96d"
+  },
+  {
+    "id": "9c7fb50c-023b-4873-a879-9361a8ac6f59",
+    "nameEn": "Practical Granite",
+    "nameAr": "فرع TEhab",
+    "categoryId": "75a0623c-ac4b-47a5-aea4-463e605d6991"
+  },
+  {
+    "id": "e67e49d5-539d-4272-b281-2be69aa177f3",
+    "nameEn": "Licensed Ceramic",
+    "nameAr": "فرع IclDj",
+    "categoryId": "833b03b5-91bb-4d37-b6d4-518d1e44d16e"
+  },
+  {
+    "id": "cfa588db-fce7-49c5-9418-1814f6b61ec8",
+    "nameEn": "Ergonomic Granite",
+    "nameAr": "فرع tdCqI",
+    "categoryId": "dbfe6825-a5ba-4984-a594-7cafbe382b0a"
+  },
+  {
+    "id": "61f3b105-4609-4d38-ba2c-7ed0880f17e8",
+    "nameEn": "Intelligent Steel",
+    "nameAr": "فرع ixnGg",
+    "categoryId": "bef55d66-138f-4a57-b293-85270fbdc3da"
+  },
+  {
+    "id": "0ee193d1-6fbd-42a7-a460-58309024d4a0",
+    "nameEn": "Tasty Marble",
+    "nameAr": "فرع phSkt",
+    "categoryId": "00164d79-8372-4c38-a84b-fe2c30938d76"
+  },
+  {
+    "id": "2a4c41e4-3e43-4f18-97a4-a37a6a36b919",
+    "nameEn": "Oriental Ceramic",
+    "nameAr": "فرع AdWDt",
+    "categoryId": "46af9dd4-deff-479f-8449-6f43d21b1ceb"
+  },
+  {
+    "id": "a59db1ae-7328-4a90-8d27-5a7eb3eb1be1",
+    "nameEn": "Modern Concrete",
+    "nameAr": "فرع mWzoF",
+    "categoryId": "03e61208-02f5-4a03-961a-dab567fc88c0"
+  },
+  {
+    "id": "59e669f6-3782-4e83-8707-244af125ee26",
+    "nameEn": "Bespoke Granite",
+    "nameAr": "فرع lZDlQ",
+    "categoryId": "9f7a5048-998a-4ce7-bec7-d4f63667add6"
+  },
+  {
+    "id": "b7cd6a50-bbb1-49d7-9dd5-1ab9efba5550",
+    "nameEn": "Elegant Wooden",
+    "nameAr": "فرع NPKGD",
+    "categoryId": "d940327b-af1b-45d2-9051-cc887599b9d5"
+  },
+  {
+    "id": "e51582f9-f139-4953-8203-be9778884108",
+    "nameEn": "Practical Metal",
+    "nameAr": "فرع KTmlo",
+    "categoryId": "46af9dd4-deff-479f-8449-6f43d21b1ceb"
+  },
+  {
+    "id": "035701c0-2583-4f61-be5c-cd1e3e628e93",
+    "nameEn": "Modern Steel",
+    "nameAr": "فرع kgpOO",
+    "categoryId": "03e61208-02f5-4a03-961a-dab567fc88c0"
+  },
+  {
+    "id": "da3a2ddb-2302-4117-b429-755f5bc6173e",
+    "nameEn": "Oriental Rubber",
+    "nameAr": "فرع BGJfO",
+    "categoryId": "dd533a98-0719-4bfe-b49d-da86835348e0"
+  },
+  {
+    "id": "83e77692-2919-424d-b1cd-50138ecf6c76",
+    "nameEn": "Intelligent Rubber",
+    "nameAr": "فرع DmSxy",
+    "categoryId": "00164d79-8372-4c38-a84b-fe2c30938d76"
+  },
+  {
+    "id": "c35393af-06c3-4624-b16d-d09c644995f1",
+    "nameEn": "Soft Plastic",
+    "nameAr": "فرع USlOj",
+    "categoryId": "92497562-e582-4a94-b8e0-a4d90b66edfd"
+  },
+  {
+    "id": "a897c99b-61bb-49f9-862c-8fa3ef4acdcf",
+    "nameEn": "Unbranded Aluminum",
+    "nameAr": "فرع ddSvh",
+    "categoryId": "bdc4aaad-d57f-4193-b5b9-35f93ee7db6c"
+  },
+  {
+    "id": "e7e27f34-99a0-45aa-b7a6-f47a548a90db",
+    "nameEn": "Handmade Concrete",
+    "nameAr": "فرع DTkRq",
+    "categoryId": "5095e4a0-887b-40df-8ca8-46601c8044b2"
+  },
+  {
+    "id": "ba294a51-9f8a-43ff-aef4-23ae0ea7d357",
+    "nameEn": "Small Marble",
+    "nameAr": "فرع jtYug",
+    "categoryId": "bb6bf105-774f-48e7-b7cb-c2a4175d0373"
+  },
+  {
+    "id": "b97fa2e7-8913-441b-88c2-3eb6e562d174",
+    "nameEn": "Awesome Ceramic",
+    "nameAr": "فرع ztMnx",
+    "categoryId": "d940327b-af1b-45d2-9051-cc887599b9d5"
+  },
+  {
+    "id": "362a6882-bc93-40db-8f41-b1b62816175f",
+    "nameEn": "Handcrafted Aluminum",
+    "nameAr": "فرع BjySO",
+    "categoryId": "da406c45-f8d0-4ceb-a9a4-a5fa21fe03b8"
+  },
+  {
+    "id": "ba1034c1-b707-48b8-9480-e4242e0eb831",
+    "nameEn": "Handmade Cotton",
+    "nameAr": "فرع QNESk",
+    "categoryId": "60fe329d-575f-4bda-8e63-beb9b8529af6"
+  },
+  {
+    "id": "ef864525-4482-474d-9f8b-8592475c488e",
+    "nameEn": "Ergonomic Rubber",
+    "nameAr": "فرع IiyPy",
+    "categoryId": "dd533a98-0719-4bfe-b49d-da86835348e0"
+  }
+]
