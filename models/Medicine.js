@@ -54,6 +54,11 @@ const medicineSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    Prescription: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Prescription",
+      
+    },
     discount: {
       type: Number,
       default: 0,

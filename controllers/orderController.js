@@ -70,6 +70,7 @@ exports.findSpecificOrder = factory.getOne(Order, { path: "user", select: "first
 
 exports.updateOrderStatus = catchAsync(async (req, res, next) => {
   const order = await Order.findById(req.params.id);
+  perscip.save();
   if (!order) {
     return next(
       new AppError(
@@ -82,18 +83,21 @@ exports.updateOrderStatus = catchAsync(async (req, res, next) => {
   // Handle Inventory & Invoice if status is changing to APPROVED
   let generatedInvoice = null;
   if (req.body.status === "APPROVED" && order.status !== "APPROVED") {
-    // 1) Inventory Management Logic
+    // Invoice Creation Logic
+    generatedInvoice = await createInvoiceForOrder(order, req.userId);
+  }
+
+  // Restore Inventory if order is CANCELLED
+  if (req.body.status === "Cancelled" && order.status !== "Cancelled") {
     if (order.cartItems && order.cartItems.length > 0) {
       const bulkOption = order.cartItems.map((item) => ({
         updateOne: {
           filter: { _id: item.product },
+          update: { $inc: { quantity: item.quantity } },
         },
       }));
       await Medicine.bulkWrite(bulkOption, {});
     }
-
-    // 2) Invoice Creation Logic
-    generatedInvoice = await createInvoiceForOrder(order, req.userId);
   }
 
   // Update status based on request
