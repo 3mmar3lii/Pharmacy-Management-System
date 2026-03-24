@@ -15,6 +15,8 @@ const calcTotalCartPrice = (cart) => {
 
 exports.addProductToCart = catchAsync(async (req, res, next) => {
   const { productId, quantity, prescription } = req.body;
+  const requestedQuantity = quantity || 1;
+
   const product = await Medicine.findById(productId);
   if (!product) {
     return next(new AppError(`No product for this id ${productId}`, 404));
@@ -28,10 +30,13 @@ exports.addProductToCart = catchAsync(async (req, res, next) => {
   let cart = await Cart.findOne({ user: req.userId });
 
   if (!cart) {
+    if (product.quantity < requestedQuantity) {
+      return next(new AppError(`Not enough stock. Only ${product.quantity} items available.`, 400));
+    }
     // create cart for logged user with product
     cart = await Cart.create({
       user: req.userId,
-      cartItems: [{ product: productId, price: product.price, quantity: quantity || 1, prescription: prescription || undefined }],
+      cartItems: [{ product: productId, price: product.price, quantity: requestedQuantity, prescription: prescription || undefined }],
     });
   } else {
     // product exists in cart, update quantity
@@ -41,11 +46,18 @@ exports.addProductToCart = catchAsync(async (req, res, next) => {
 
     if (productIndex > -1) {
       const cartItem = cart.cartItems[productIndex];
-      cartItem.quantity += quantity || 1;
+      const newTotalQuantity = cartItem.quantity + requestedQuantity;
+      if (product.quantity < newTotalQuantity) {
+        return next(new AppError(`Not enough stock. Cannot add total of ${newTotalQuantity}. Only ${product.quantity} items available.`, 400));
+      }
+      cartItem.quantity += requestedQuantity;
       cart.cartItems[productIndex] = cartItem;
     } else {
+      if (product.quantity < requestedQuantity) {
+        return next(new AppError(`Not enough stock. Only ${product.quantity} items available.`, 400));
+      }
       // product not exists in cart, push product to cartItems array
-      cart.cartItems.push({ product: productId, price: product.price, quantity: quantity || 1, prescription: prescription || undefined });
+      cart.cartItems.push({ product: productId, price: product.price, quantity: requestedQuantity, prescription: prescription || undefined });
     }
   }
 
@@ -115,6 +127,12 @@ exports.updateCartItemQuantity = catchAsync(async (req, res, next) => {
   );
   if (itemIndex > -1) {
     const cartItem = cart.cartItems[itemIndex];
+    // check adequate stock before update
+    const product = await Medicine.findById(cartItem.product);
+    if (product && product.quantity < quantity) {
+      return next(new AppError(`Not enough stock. Only ${product.quantity} items available.`, 400));
+    }
+    
     cartItem.quantity = quantity;
     cart.cartItems[itemIndex] = cartItem;
   } else {
