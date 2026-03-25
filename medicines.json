@@ -1,362 +1,227 @@
 [
   {
-    "id": "f6725b01-08a6-41d7-aaaf-49583d458df1",
-    "name": "Tasty Gold Fish 500mg",
-    "company": "Runolfsdottir - Powlowski",
-    "price": 1312.25,
-    "stock": 489,
-    "imageUrl": "https://loremflickr.com/3420/1934/pill?lock=8475018894804389"
+    "id": "9529cdce-8cf8-47c2-9037-a8886e344f57",
+    "name": "Paracetamol 500mg",
+    "company": "Panadol",
+    "price": 20.0,
+    "stock": 50,
+    "imageUrl": "https://loremflickr.com/320/240/medicine",
+    "categoryId": "8dab1495-ce2d-43e3-80eb-363c589d21a0"
   },
   {
-    "id": "e1f9cb2f-7783-411a-bc03-5a65ceb44af5",
-    "name": "Bespoke Rubber Pants 100mg",
-    "company": "Collier and Sons",
-    "price": 743.59,
-    "stock": 283,
-    "imageUrl": "https://loremflickr.com/82/2014/pill?lock=8141825987144559"
-  },
-  {
-    "id": "04c4420b-7d04-4cb7-a83d-157c848e3716",
-    "name": "Incredible Metal Towels 100mg",
-    "company": "Hills, Gerhold and Murphy",
-    "price": 1395.59,
-    "stock": 223,
-    "imageUrl": "https://loremflickr.com/3975/1653/pill?lock=6331805492653475"
-  },
-  {
-    "id": "a922afd1-9818-4e11-9d1d-e63913dac00e",
-    "name": "Awesome Bamboo Tuna 100mg",
-    "company": "Lehner - Ortiz",
-    "price": 840.09,
-    "stock": 473,
-    "imageUrl": "https://loremflickr.com/1768/1371/pill?lock=7295271134639185"
-  },
-  {
-    "id": "abc1ee57-0dc4-4825-a9af-df2e135e415a",
-    "name": "Handcrafted Ceramic Keyboard 100mg",
-    "company": "Ondricka, Wiza and Leffler",
-    "price": 1181.82,
-    "stock": 326,
-    "imageUrl": "https://loremflickr.com/3127/1905/pill?lock=1491364759354556"
-  },
-  {
-    "id": "f8b37356-d9bf-42c0-8f50-e85a24930812",
-    "name": "Tasty Bamboo Keyboard 1000mg",
-    "company": "Walsh - Mann",
-    "price": 263.55,
-    "stock": 91,
-    "imageUrl": "https://loremflickr.com/3953/3073/pill?lock=1085929091713067"
-  },
-  {
-    "id": "cebb02e0-224b-434f-9c93-aca94dbec230",
-    "name": "Fantastic Plastic Towels 1000mg",
-    "company": "Moen and Sons",
-    "price": 402.19,
-    "stock": 366,
-    "imageUrl": "https://loremflickr.com/3884/3628/pill?lock=5045977821215270"
-  },
-  {
-    "id": "40c5cd80-46bc-4c95-9760-d4596ae48df0",
-    "name": "Incredible Bamboo Table 500mg",
-    "company": "Cole Group",
-    "price": 359.89,
-    "stock": 405,
-    "imageUrl": "https://loremflickr.com/1680/1066/pill?lock=1682642002720815"
-  },
-  {
-    "id": "bca4aa53-4395-44c6-a89e-b83e7105ac7a",
-    "name": "Handmade Concrete Pizza 500mg",
-    "company": "Windler, Williamson and Robel",
-    "price": 387.89,
-    "stock": 492,
-    "imageUrl": "https://loremflickr.com/1895/15/pill?lock=6669146665494340"
-  },
-  {
-    "id": "e22d8c31-bb16-4430-b93e-f5a1458b080d",
-    "name": "Practical Marble Soap 100mg",
-    "company": "Bosco, Hackett and Macejkovic",
-    "price": 412.88,
-    "stock": 196,
-    "imageUrl": "https://loremflickr.com/1791/2279/pill?lock=2753071103453585"
-  },
-  {
-    "id": "d70489fe-17b9-48dc-939e-9e1a52ef70dc",
-    "name": "Licensed Silk Bacon 1000mg",
-    "company": "Hyatt - Quigley",
-    "price": 1375.68,
-    "stock": 133,
-    "imageUrl": "https://loremflickr.com/3711/1471/pill?lock=4339310759253465"
-  },
-  {
-    "id": "6b171516-9aae-451e-833d-61e7d8f1ecb6",
-    "name": "Elegant Rubber Mouse 500mg",
-    "company": "Willms - Wilderman",
-    "price": 67.86,
-    "stock": 140,
-    "imageUrl": "https://loremflickr.com/756/3493/pill?lock=2635807299545647"
-  },
-  {
-    "id": "73a83668-4709-4681-abc6-3f25ebbeb278",
-    "name": "Tasty Aluminum Mouse 1000mg",
-    "company": "Zieme LLC",
-    "price": 814.95,
-    "stock": 402,
-    "imageUrl": "https://loremflickr.com/2904/1302/pill?lock=8913852953532175"
-  },
-  {
-    "id": "07efca02-3805-4843-8525-0ee2c936a72c",
-    "name": "Generic Metal Car 1000mg",
-    "company": "Abernathy Group",
-    "price": 1147.39,
+    "id": "bca23b30-8d46-4ba5-b1de-45d5645ea7f7",
+    "name": "Ibuprofen 400mg",
+    "company": "Brufen",
+    "price": 22.5,
     "stock": 53,
-    "imageUrl": "https://loremflickr.com/202/243/pill?lock=4908778179123707"
+    "imageUrl": "https://loremflickr.com/320/240/medicine",
+    "categoryId": "43da4347-e799-4ce7-92fd-e3c0e1675035"
   },
   {
-    "id": "4101eeb5-f866-4ad7-80f2-e058dbce72c2",
-    "name": "Oriental Cotton Shoes 500mg",
-    "company": "Bins - Barrows",
-    "price": 601.45,
-    "stock": 279,
-    "imageUrl": "https://loremflickr.com/1169/1167/pill?lock=1649134609572599"
+    "id": "ba0e3343-c1b7-4f9f-952b-427f5729478e",
+    "name": "Diclofenac",
+    "company": "Voltaren",
+    "price": 25.0,
+    "stock": 56,
+    "imageUrl": "https://loremflickr.com/320/240/medicine",
+    "categoryId": "5cae6aaa-3b20-4474-99f1-39ac06831336"
   },
   {
-    "id": "68e3a270-546d-4a67-8992-c29d3222d118",
-    "name": "Gorgeous Rubber Sausages 500mg",
-    "company": "Denesik Group",
-    "price": 714.49,
-    "stock": 174,
-    "imageUrl": "https://loremflickr.com/3714/2338/pill?lock=1828889205225604"
-  },
-  {
-    "id": "b0cb220f-5655-4245-80b5-542ef0e87d73",
-    "name": "Refined Concrete Table 500mg",
-    "company": "Hagenes Group",
-    "price": 1005.5,
-    "stock": 24,
-    "imageUrl": "https://loremflickr.com/2820/3892/pill?lock=2599779295085986"
-  },
-  {
-    "id": "866b1ca1-d243-40c0-8ac9-743ab41125bb",
-    "name": "Gorgeous Bamboo Bike 100mg",
-    "company": "Hackett - Nader",
-    "price": 543.19,
-    "stock": 208,
-    "imageUrl": "https://loremflickr.com/3247/2147/pill?lock=331351597446239"
-  },
-  {
-    "id": "1c7d405d-6d58-4b1a-9f94-8c1c2620d924",
-    "name": "Oriental Bronze Tuna 100mg",
-    "company": "Franecki Inc",
-    "price": 460.9,
-    "stock": 277,
-    "imageUrl": "https://loremflickr.com/1195/3384/pill?lock=719466070895316"
-  },
-  {
-    "id": "19661dc7-7241-4498-ad4f-93f54b301c28",
-    "name": "Gorgeous Silk Chicken 250mg",
-    "company": "Boyer and Sons",
-    "price": 407.49,
-    "stock": 130,
-    "imageUrl": "https://loremflickr.com/2229/3814/pill?lock=1274355047554569"
-  },
-  {
-    "id": "1e55d29d-46d9-452e-8f96-6f2e4c9a5606",
-    "name": "Licensed Cotton Fish 250mg",
-    "company": "Monahan, Medhurst and O'Conner",
-    "price": 343.6,
-    "stock": 484,
-    "imageUrl": "https://loremflickr.com/1405/3729/pill?lock=5987939054144485"
-  },
-  {
-    "id": "11549a10-69ad-48ec-8ec8-2d8ca77f2c8b",
-    "name": "Incredible Bronze Sausages 500mg",
-    "company": "Denesik Group",
-    "price": 549.75,
-    "stock": 459,
-    "imageUrl": "https://loremflickr.com/546/2380/pill?lock=9000429699007745"
-  },
-  {
-    "id": "5f9abcb0-f62c-415d-a2f7-a0ddfac0eb6a",
-    "name": "Handmade Bronze Chips 100mg",
-    "company": "Howe, Herman and Zulauf",
-    "price": 883.25,
-    "stock": 158,
-    "imageUrl": "https://loremflickr.com/3719/1730/pill?lock=2078428840710669"
-  },
-  {
-    "id": "7bc451c1-594b-4e01-8b24-140074ced968",
-    "name": "Practical Gold Keyboard 250mg",
-    "company": "Cruickshank, Rohan and Fadel",
-    "price": 333.99,
-    "stock": 107,
-    "imageUrl": "https://loremflickr.com/3180/80/pill?lock=3391520589791486"
-  },
-  {
-    "id": "2d3f5ba7-3fe6-4224-9bc1-d8d949beed7d",
-    "name": "Rustic Ceramic Table 1000mg",
-    "company": "Okuneva Inc",
-    "price": 98.49,
-    "stock": 16,
-    "imageUrl": "https://loremflickr.com/1346/1070/pill?lock=4789712947620151"
-  },
-  {
-    "id": "e36f0b36-5401-45fe-b9ce-5d95db5ac038",
-    "name": "Refined Steel Soap 100mg",
-    "company": "Schimmel Inc",
-    "price": 1228.79,
-    "stock": 6,
-    "imageUrl": "https://loremflickr.com/743/1070/pill?lock=6378223222802638"
-  },
-  {
-    "id": "cec8991c-9518-4b98-8e47-a355e8a46790",
-    "name": "Awesome Rubber Bacon 100mg",
-    "company": "Crona - Wintheiser",
-    "price": 230.99,
-    "stock": 180,
-    "imageUrl": "https://loremflickr.com/2723/2634/pill?lock=4529709947282972"
-  },
-  {
-    "id": "d67704d8-1899-4df4-8e45-d01229430e7d",
-    "name": "Incredible Wooden Tuna 100mg",
-    "company": "Johnson and Sons",
-    "price": 1007.89,
-    "stock": 33,
-    "imageUrl": "https://loremflickr.com/2654/179/pill?lock=4246347303334966"
-  },
-  {
-    "id": "a7b53e0c-f609-4b71-b397-e479dba9de38",
-    "name": "Recycled Silk Pizza 1000mg",
-    "company": "Bins - Braun",
-    "price": 905.49,
-    "stock": 99,
-    "imageUrl": "https://loremflickr.com/259/2293/pill?lock=6535730026781547"
-  },
-  {
-    "id": "e653dee5-1342-40fe-83e7-ed6f83d5b3b6",
-    "name": "Rustic Granite Soap 100mg",
-    "company": "McGlynn, Medhurst and Hermann",
-    "price": 672.65,
-    "stock": 236,
-    "imageUrl": "https://loremflickr.com/46/958/pill?lock=7131099251753346"
-  },
-  {
-    "id": "935a33b2-d9d4-4c61-9f08-b385b5834007",
-    "name": "Intelligent Bamboo Tuna 1000mg",
-    "company": "Langosh - Braun",
-    "price": 1205.69,
-    "stock": 320,
-    "imageUrl": "https://loremflickr.com/3308/1866/pill?lock=3901476004721589"
-  },
-  {
-    "id": "7f7783a5-1702-40b7-8683-d089efb58b7e",
-    "name": "Incredible Silk Tuna 500mg",
-    "company": "Walker, Veum and Gutmann",
-    "price": 745.89,
-    "stock": 348,
-    "imageUrl": "https://loremflickr.com/3600/1810/pill?lock=8273751962914402"
-  },
-  {
-    "id": "996f1afe-6885-4d78-a6e0-318d5f94054a",
-    "name": "Practical Bamboo Salad 1000mg",
-    "company": "Ebert and Sons",
-    "price": 1431.09,
-    "stock": 52,
-    "imageUrl": "https://loremflickr.com/1215/2431/pill?lock=3559622539462441"
-  },
-  {
-    "id": "5f2bb3ab-1960-4570-8a93-c970e2c86c51",
-    "name": "Bespoke Cotton Towels 250mg",
-    "company": "Nolan - Hessel",
-    "price": 738.39,
-    "stock": 283,
-    "imageUrl": "https://loremflickr.com/392/751/pill?lock=3485947504332548"
-  },
-  {
-    "id": "4d2399f4-3b7c-4a09-8a52-db7a8505ac21",
-    "name": "Refined Ceramic Soap 500mg",
-    "company": "Hilll, Carroll and Spencer",
-    "price": 991.45,
-    "stock": 164,
-    "imageUrl": "https://loremflickr.com/3314/115/pill?lock=3456052510417091"
-  },
-  {
-    "id": "14160fbf-86d3-4cbf-a273-8da05525f3f7",
-    "name": "Sleek Aluminum Shoes 500mg",
-    "company": "Little - Grady",
-    "price": 133.55,
-    "stock": 371,
-    "imageUrl": "https://loremflickr.com/3550/3097/pill?lock=1217359351380715"
-  },
-  {
-    "id": "6a718f59-5c72-4691-bd19-f27014e4afe5",
-    "name": "Frozen Metal Pants 250mg",
-    "company": "Dibbert, Lehner and Vandervort",
-    "price": 789.85,
-    "stock": 488,
-    "imageUrl": "https://loremflickr.com/3023/2624/pill?lock=3868777881267691"
-  },
-  {
-    "id": "f4cb9afa-35e3-4263-bec9-4d8f5042cadf",
-    "name": "Handmade Rubber Table 500mg",
-    "company": "Davis - Kling",
-    "price": 943.09,
-    "stock": 236,
-    "imageUrl": "https://loremflickr.com/3248/3426/pill?lock=2094517516638546"
-  },
-  {
-    "id": "862296f9-e5ab-4253-b579-780beae3dfdd",
-    "name": "Fantastic Rubber Chicken 100mg",
-    "company": "Bernhard and Sons",
-    "price": 142.05,
-    "stock": 387,
-    "imageUrl": "https://loremflickr.com/2304/1361/pill?lock=475607660199973"
-  },
-  {
-    "id": "fb52cb93-ffa2-4b5e-b359-8fca3e47b702",
-    "name": "Awesome Metal Bike 1000mg",
-    "company": "Runolfsson, Beer and Anderson",
-    "price": 787.39,
-    "stock": 16,
-    "imageUrl": "https://loremflickr.com/1609/3095/pill?lock=6625026413355981"
-  },
-  {
-    "id": "5dcbeee7-5f0a-458d-874a-2ebbbc5a714a",
-    "name": "Handmade Wooden Ball 500mg",
-    "company": "Lemke - Casper",
-    "price": 838.95,
-    "stock": 375,
-    "imageUrl": "https://loremflickr.com/1128/259/pill?lock=5915801716887489"
-  },
-  {
-    "id": "ea024584-57f8-4790-b9f7-596fd750e33b",
-    "name": "Handmade Plastic Car 500mg",
-    "company": "Crooks, Ebert and Orn",
-    "price": 74.09,
-    "stock": 136,
-    "imageUrl": "https://loremflickr.com/1471/1136/pill?lock=3051867558641746"
-  },
-  {
-    "id": "6424a5f6-39fe-49bf-9d2a-e031d9174763",
-    "name": "Generic Wooden Car 100mg",
-    "company": "Fisher - Cummings",
-    "price": 666.9,
-    "stock": 185,
-    "imageUrl": "https://loremflickr.com/3751/1293/pill?lock=8645374187440950"
-  },
-  {
-    "id": "ea74842d-d342-41f6-a8c3-f4b878ed63a4",
-    "name": "Elegant Plastic Car 250mg",
-    "company": "Volkman - Flatley",
-    "price": 1211.89,
+    "id": "ce583f3e-2710-4160-8fd3-d782a6a3c591",
+    "name": "Amoxicillin",
+    "company": "Augmentin",
+    "price": 27.5,
     "stock": 59,
-    "imageUrl": "https://loremflickr.com/3968/454/pill?lock=7142527250414622"
+    "imageUrl": "https://loremflickr.com/320/240/medicine",
+    "categoryId": "8bed4544-e983-4894-ac68-bb749d120b19"
   },
   {
-    "id": "98bc9ec9-b84e-4ba9-9a0b-4316330da3fd",
-    "name": "Gorgeous Granite Car 1000mg",
-    "company": "Rutherford - Hagenes",
-    "price": 107.49,
+    "id": "eaa2975f-2e79-429e-bd04-088e3f21c995",
+    "name": "Azithromycin",
+    "company": "Zithromax",
+    "price": 30.0,
+    "stock": 62,
+    "imageUrl": "https://loremflickr.com/320/240/medicine",
+    "categoryId": "1c43fd6a-0e85-42ba-b13b-8ea37b8b9c6e"
+  },
+  {
+    "id": "aee9b6b3-6a7d-42d6-93f6-65b9cb71a21c",
+    "name": "Cefixime",
+    "company": "Suprax",
+    "price": 32.5,
+    "stock": 65,
+    "imageUrl": "https://loremflickr.com/320/240/medicine",
+    "categoryId": "d4d278ad-acf3-4c0d-9d7d-ad008fb8828a"
+  },
+  {
+    "id": "e905e90e-cbce-4f3f-93d9-6bacfdc60e59",
+    "name": "Panadol Cold & Flu",
+    "company": "GSK",
+    "price": 35.0,
+    "stock": 68,
+    "imageUrl": "https://loremflickr.com/320/240/medicine",
+    "categoryId": "bf51bcb7-d69c-44e8-8d63-e822884eaece"
+  },
+  {
+    "id": "c70699af-dbd0-4195-a9ec-0917b51d4c73",
+    "name": "Otrivin Nasal Spray",
+    "company": "Novartis",
+    "price": 37.5,
+    "stock": 71,
+    "imageUrl": "https://loremflickr.com/320/240/medicine",
+    "categoryId": "781c2e30-dab8-46a1-9b88-4aef31b1625e"
+  },
+  {
+    "id": "6bc5168e-2e81-4e6d-bc0b-786bff7dfd00",
+    "name": "Vitamin C",
+    "company": "C-Retard",
+    "price": 40.0,
+    "stock": 74,
+    "imageUrl": "https://loremflickr.com/320/240/medicine",
+    "categoryId": "d350ed64-772b-43e8-b547-7013730b8008"
+  },
+  {
+    "id": "a30141e6-d42d-49b9-8c8e-81527c4b30cd",
+    "name": "Vitamin D",
+    "company": "Vidrop",
+    "price": 42.5,
+    "stock": 77,
+    "imageUrl": "https://loremflickr.com/320/240/medicine",
+    "categoryId": "466570d0-88cd-471d-b5ea-24f5da8df5c9"
+  },
+  {
+    "id": "5ebc6a65-67cd-4baf-bbb1-00fa7da64cc0",
+    "name": "Omega 3",
+    "company": "Seven Seas",
+    "price": 45.0,
+    "stock": 80,
+    "imageUrl": "https://loremflickr.com/320/240/medicine",
+    "categoryId": "8dab1495-ce2d-43e3-80eb-363c589d21a0"
+  },
+  {
+    "id": "ad6e4ba8-c399-415d-ba64-bfcb580a4298",
+    "name": "Antinal",
+    "company": "Amoun",
+    "price": 47.5,
+    "stock": 83,
+    "imageUrl": "https://loremflickr.com/320/240/medicine",
+    "categoryId": "43da4347-e799-4ce7-92fd-e3c0e1675035"
+  },
+  {
+    "id": "96f0356b-b6b9-468b-b274-661f68a448e7",
+    "name": "Imodium",
+    "company": "Janssen",
+    "price": 50.0,
+    "stock": 86,
+    "imageUrl": "https://loremflickr.com/320/240/medicine",
+    "categoryId": "5cae6aaa-3b20-4474-99f1-39ac06831336"
+  },
+  {
+    "id": "f8df6288-1e80-4372-a53a-35011ef01911",
+    "name": "Spasmo Digestin",
+    "company": "CID",
+    "price": 52.5,
+    "stock": 89,
+    "imageUrl": "https://loremflickr.com/320/240/medicine",
+    "categoryId": "8bed4544-e983-4894-ac68-bb749d120b19"
+  },
+  {
+    "id": "b88dbaf2-c3b8-4ea7-8291-0898518f37d6",
+    "name": "Fucidin Cream",
+    "company": "LEO Pharma",
+    "price": 55.0,
+    "stock": 92,
+    "imageUrl": "https://loremflickr.com/320/240/medicine",
+    "categoryId": "1c43fd6a-0e85-42ba-b13b-8ea37b8b9c6e"
+  },
+  {
+    "id": "fb40625e-9670-43b8-8277-ebe027b3b7b2",
+    "name": "Betnovate",
+    "company": "GSK",
+    "price": 57.5,
+    "stock": 95,
+    "imageUrl": "https://loremflickr.com/320/240/medicine",
+    "categoryId": "d4d278ad-acf3-4c0d-9d7d-ad008fb8828a"
+  },
+  {
+    "id": "8d78eb02-f1d6-46d8-a994-a83cb8e76a17",
+    "name": "Panthenol",
+    "company": "Eva Pharma",
+    "price": 60.0,
+    "stock": 98,
+    "imageUrl": "https://loremflickr.com/320/240/medicine",
+    "categoryId": "bf51bcb7-d69c-44e8-8d63-e822884eaece"
+  },
+  {
+    "id": "ecac6cd7-58d6-45e6-8c7a-9bcf5a2cac7d",
+    "name": "Metformin",
+    "company": "Cidophage",
+    "price": 62.5,
+    "stock": 101,
+    "imageUrl": "https://loremflickr.com/320/240/medicine",
+    "categoryId": "781c2e30-dab8-46a1-9b88-4aef31b1625e"
+  },
+  {
+    "id": "47751db7-aded-4603-81e5-c177d6a46c39",
+    "name": "Insulin",
+    "company": "Novo Nordisk",
+    "price": 65.0,
     "stock": 104,
-    "imageUrl": "https://loremflickr.com/469/1398/pill?lock=7853206072499007"
+    "imageUrl": "https://loremflickr.com/320/240/medicine",
+    "categoryId": "d350ed64-772b-43e8-b547-7013730b8008"
+  },
+  {
+    "id": "0813678b-44d7-475c-abde-923f58344d4f",
+    "name": "Captopril",
+    "company": "Capoten",
+    "price": 67.5,
+    "stock": 107,
+    "imageUrl": "https://loremflickr.com/320/240/medicine",
+    "categoryId": "466570d0-88cd-471d-b5ea-24f5da8df5c9"
+  },
+  {
+    "id": "f25cdf3d-ab90-490b-9648-f6c88dcbb388",
+    "name": "Amlodipine",
+    "company": "Norvasc",
+    "price": 70.0,
+    "stock": 110,
+    "imageUrl": "https://loremflickr.com/320/240/medicine",
+    "categoryId": "8dab1495-ce2d-43e3-80eb-363c589d21a0"
+  },
+  {
+    "id": "33b6d91e-78cc-4866-94d3-c4dc5b75252a",
+    "name": "Claritin",
+    "company": "Loratadine",
+    "price": 72.5,
+    "stock": 113,
+    "imageUrl": "https://loremflickr.com/320/240/medicine",
+    "categoryId": "43da4347-e799-4ce7-92fd-e3c0e1675035"
+  },
+  {
+    "id": "d453e5eb-86e4-4053-96cf-98b82b4d81ba",
+    "name": "Zyrtec",
+    "company": "Cetirizine",
+    "price": 75.0,
+    "stock": 116,
+    "imageUrl": "https://loremflickr.com/320/240/medicine",
+    "categoryId": "5cae6aaa-3b20-4474-99f1-39ac06831336"
+  },
+  {
+    "id": "d0c70299-289f-409a-8159-f41bb296160f",
+    "name": "Ventolin Inhaler",
+    "company": "GSK",
+    "price": 77.5,
+    "stock": 119,
+    "imageUrl": "https://loremflickr.com/320/240/medicine",
+    "categoryId": "8bed4544-e983-4894-ac68-bb749d120b19"
+  },
+  {
+    "id": "2b13da1c-84bb-4f8b-aee4-0885ae359c8b",
+    "name": "Bisolvon",
+    "company": "Sanofi",
+    "price": 80.0,
+    "stock": 122,
+    "imageUrl": "https://loremflickr.com/320/240/medicine",
+    "categoryId": "1c43fd6a-0e85-42ba-b13b-8ea37b8b9c6e"
   }
 ]
