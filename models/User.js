@@ -57,6 +57,9 @@ const userSchema = new mongoose.Schema(
       type: String,
       default: "default-profile.png",
     },
+    token: {
+      type: String,
+    },
   },
   { timestamps: true },
 );

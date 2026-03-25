@@ -60,13 +60,23 @@ const medicineSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    Prescription: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Prescription",
+
+    },
     discount: {
       type: Number,
       default: 0,
     },
-    isActive: {
-      type: Boolean,
-      default: true,
+    createdBy: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+    },
+    updatedBy: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
     },
   },
   { timestamps: true },

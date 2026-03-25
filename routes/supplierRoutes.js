@@ -1,30 +1,17 @@
 const express = require("express");
-const supplierController = require("../controllers/supplierController");
-const authMiddleware = require("../middlewares/authMiddleware");
+const controller = require("../controllers/supplierController");
 
 const router = express.Router();
 
 router
     .route("/")
-    .get(authMiddleware.AuthMiddleware, supplierController.getAllSuppliers)
-    .post(
-        authMiddleware.AuthMiddleware,
-        authMiddleware.restirctTo("admin", "pharmacist"),
-        supplierController.createSupplier
-    );
+    .post(controller.createSupplier)
+    .get(controller.getAllSuppliers);
 
 router
     .route("/:id")
-    .get(authMiddleware.AuthMiddleware, supplierController.getSupplier)
-    .patch(
-        authMiddleware.AuthMiddleware,
-        authMiddleware.restirctTo("admin", "pharmacist"),
-        supplierController.updateSupplier
-    )
-    .delete(
-        authMiddleware.AuthMiddleware,
-        authMiddleware.restirctTo("admin", "pharmacist"),
-        supplierController.deleteSupplier
-    );
+    .get(controller.getSupplier)
+    .put(controller.updateSupplier)
+    .delete(controller.deleteSupplier);
 
 module.exports = router;
