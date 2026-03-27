@@ -2,6 +2,7 @@ const Cart = require("../models/Cart");
 const Medicine = require("../models/Medicine");
 const AppError = require("../utils/AppError");
 const catchAsync = require("../utils/catchAsync");
+const Prescription = require("../models/Prescriptions");
 
 const calcTotalCartPrice = (cart) => {
   let totalPrice = 0;
@@ -20,10 +21,6 @@ exports.addProductToCart = catchAsync(async (req, res, next) => {
   const product = await Medicine.findById(productId);
   if (!product) {
     return next(new AppError(`No product for this id ${productId}`, 404));
-  }
-  
-  if (product.requiresPrescription && !prescription) {
-    return next(new AppError(`This product requires a prescription to be added to the cart`, 400));
   }
   
   // 1) Get Cart for logged user
@@ -76,17 +73,24 @@ exports.addProductToCart = catchAsync(async (req, res, next) => {
 exports.getLoggedUserCart = catchAsync(async (req, res, next) => {
   const cart = await Cart.findOne({ user: req.userId }).populate({
     path: "cartItems.product",
-    select: "nameEn nameAr image price",
+    select: "nameEn nameAr image price requiresPrescription",
   });
 
   if (!cart) {
     return next(new AppError(`There is no cart for this user id : ${req.userId}`, 404));
   }
 
+  const cartObj = cart.toObject();
+  cartObj.cartItems = cartObj.cartItems.map((item) => ({
+    ...item,
+    requiresPrescription: item.product ? item.product.requiresPrescription : false,
+    hasPrescription: !!item.prescription,
+  }));
+
   res.status(200).json({
     status: "success",
-    numOfCartItems: cart.cartItems.length,
-    data: cart,
+    numOfCartItems: cartObj.cartItems.length,
+    data: cartObj,
   });
 });
 
@@ -145,6 +149,51 @@ exports.updateCartItemQuantity = catchAsync(async (req, res, next) => {
   res.status(200).json({
     status: "success",
     numOfCartItems: cart.cartItems.length,
+    data: cart,
+  });
+});
+
+exports.attachPrescriptionToCartItem = catchAsync(async (req, res, next) => {
+  const { prescriptionId } = req.body;
+  const { itemId } = req.params;
+
+  const cart = await Cart.findOne({ user: req.userId });
+  if (!cart) {
+    return next(new AppError(`There is no cart for this user`, 404));
+  }
+
+  const itemIndex = cart.cartItems.findIndex(
+    (item) => item._id.toString() === itemId
+  );
+
+  if (itemIndex === -1) {
+    return next(new AppError(`There is no item for this id :${itemId}`, 404));
+  }
+
+  const prescription = await Prescription.findById(prescriptionId).lean();
+  if (!prescription) {
+    return next(new AppError(`No prescription found with this id`, 404));
+  }
+
+  if (prescription.user.toString() !== req.userId.toString()) {
+    return next(new AppError(`You are not authorized to use this prescription`, 403));
+  }
+
+  const cartItem = cart.cartItems[itemIndex];
+  const product = await Medicine.findById(cartItem.product).lean();
+  
+  if (!product || product.requiresPrescription === false) {
+    return next(new AppError(`This product does not require a prescription`, 400));
+  }
+
+  cartItem.prescription = prescriptionId;
+  cart.cartItems[itemIndex] = cartItem;
+
+  await cart.save();
+
+  res.status(200).json({
+    status: "success",
+    message: "Prescription attached successfully",
     data: cart,
   });
 });

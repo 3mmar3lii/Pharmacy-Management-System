@@ -6,6 +6,7 @@ const {
   removeSpecificCartItem,
   clearCart,
   updateCartItemQuantity,
+  attachPrescriptionToCartItem,
 } = require("../controllers/cartController");
 
 const { AuthMiddleware, restirctTo } = require("../middlewares/authMiddleware");
@@ -24,5 +25,7 @@ router
   .route("/:itemId")
   .put(updateCartItemQuantity)
   .delete(removeSpecificCartItem);
+
+router.route("/:itemId/prescription").put(attachPrescriptionToCartItem);
 
 module.exports = router;

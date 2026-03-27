@@ -12,6 +12,7 @@ const medicineRoutes = require("./routes/medicine");
 const invoiceRoutes = require("./routes/invoice");
 const supplierRoutes = require("./routes/supplierRoutes");
 const inventoryRoutes = require("./routes/inventoryRoutes");
+const prescriptionRoutes = require("./routes/prescriptionRoutes");
 const app = express();
 
 // static files
@@ -34,6 +35,7 @@ app.use("/api/v1/invoices", invoiceRoutes);
 app.use("/api/v1/medicines", medicineRoutes);
 app.use("/api/v1/suppliers", supplierRoutes);
 app.use("/api/v1/inventory", inventoryRoutes);
+app.use("/api/v1/prescriptions", prescriptionRoutes);
 
 
 
