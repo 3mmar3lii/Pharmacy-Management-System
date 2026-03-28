@@ -15,6 +15,11 @@ const extractPrescriptionIds = (cartItems) =>
     .filter((item) => item.prescription)
     .map((item) => item.prescription);
 
+const getInvalidPrescriptionMessage = (medicineName) =>
+  medicineName
+    ? `${medicineName} requires a valid prescription before checkout`
+    : "This medicine requires a valid prescription";
+
 // ─────────────────────────────────────────────────────────────────────────────
 // @desc    Create a cash order
 // @route   POST /api/v1/orders/:cartId
@@ -30,8 +35,15 @@ exports.createCashOrder = catchAsync(async (req, res, next) => {
     return next(new AppError(`There is no cart with id ${req.params.cartId}`, 404));
   }
 
+  if (cart.user.toString() !== req.userId.toString()) {
+    return next(new AppError("You are not authorized to create an order from this cart", 403));
+  }
+
+  if (!cart.cartItems || cart.cartItems.length === 0) {
+    return next(new AppError("Your cart is empty", 400));
+  }
+
   // 2) Validate prescriptions for medicines that require one
-  //    Fetch all medicines in parallel, then verify prescriptions in parallel
   const medicineIds = cart.cartItems.map((item) => item.product);
   const medicines = await Medicine.find({ _id: { $in: medicineIds } }).lean();
   const medicineMap = Object.fromEntries(medicines.map((m) => [m._id.toString(), m]));
@@ -40,11 +52,12 @@ exports.createCashOrder = catchAsync(async (req, res, next) => {
     .filter((item) => item.prescription)
     .map((item) => item.prescription);
 
-  // Fetch all referenced prescriptions at once (no loops with await)
   const existingPrescriptions = await Prescription.find({
     _id: { $in: prescriptionIds },
+    user: req.userId,
+    status: { $ne: "rejected" },
   })
-    .select("_id")
+    .select("_id status")
     .lean();
 
   const existingPrescriptionSet = new Set(
@@ -53,14 +66,25 @@ exports.createCashOrder = catchAsync(async (req, res, next) => {
 
   for (const item of cart.cartItems) {
     const medicine = medicineMap[item.product.toString()];
-    if (medicine && medicine.requiresPrescription) {
+    if (!medicine) {
+      return next(new AppError("One or more medicines in the cart no longer exist", 404));
+    }
+
+    if (medicine.quantity < item.quantity) {
+      return next(
+        new AppError(
+          `Not enough stock for ${medicine.nameEn}. Only ${medicine.quantity} items available.`,
+          400
+        )
+      );
+    }
+
+    if (medicine.requiresPrescription) {
       if (
         !item.prescription ||
         !existingPrescriptionSet.has(item.prescription.toString())
       ) {
-        return next(
-          new AppError("This medicine requires a valid prescription", 400)
-        );
+        return next(new AppError(getInvalidPrescriptionMessage(medicine.nameEn), 400));
       }
     }
   }
