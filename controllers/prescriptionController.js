@@ -12,17 +12,13 @@ exports.uploadPrescription = catchAsync(async (req, res, next) => {
     return next(new AppError("Please upload a prescription image", 400));
   }
 
-  // Upload the file buffer to ImageKit under the "prescriptions" folder
-  const uploadResponse = await imagekit.upload({
-    file: req.file.buffer,
-    fileName: `prescription_${req.userId}_${Date.now()}`,
-    folder: "/prescriptions",
-  });
+  const protocol = req.protocol;
+  const host = req.get("host");
+  const localImageUrl = `${protocol}://${host}/uploads/prescriptions/${req.file.filename}`;
 
-  // Create the prescription document
   const prescription = await Prescription.create({
     user: req.userId,
-    image: uploadResponse.url,
+    image: localImageUrl,
     status: "pending",
   });
 

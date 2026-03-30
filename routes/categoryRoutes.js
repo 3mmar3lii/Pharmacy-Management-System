@@ -8,7 +8,7 @@ const router = express.Router();
 
 router
     .route("/")
-    .get(authMiddleware.AuthMiddleware, categoryController.getAllCategories)
+    .get(categoryController.getAllCategories)
     .post(
         authMiddleware.AuthMiddleware,
         authMiddleware.restirctTo("admin", "pharmacist"),
@@ -17,7 +17,7 @@ router
 
 router
     .route("/:id")
-    .get(authMiddleware.AuthMiddleware, categoryController.getCategory)
+    .get(categoryController.getCategory)
     .patch(
         authMiddleware.AuthMiddleware,
         authMiddleware.restirctTo("admin", "pharmacist"),

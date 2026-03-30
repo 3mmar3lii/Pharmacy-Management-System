@@ -31,6 +31,7 @@ exports.createCashOrder = catchAsync(async (req, res, next) => {
 
   // 1) Get cart
   const cart = await Cart.findById(req.params.cartId);
+
   if (!cart) {
     return next(new AppError(`There is no cart with id ${req.params.cartId}`, 404));
   }

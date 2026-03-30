@@ -5,7 +5,7 @@ const {
   getAllPrescriptions 
 } = require("../controllers/prescriptionController");
 const { AuthMiddleware, restirctTo } = require("../middlewares/authMiddleware");
-const upload = require("../middlewares/upload");
+const uploadDisk = require("../middlewares/uploadDisk");
 
 const router = express.Router();
 
@@ -18,6 +18,6 @@ router
 router
   .route("/")
   .get(restirctTo("user"), getMyPrescriptions)
-  .post(restirctTo("user"), upload.single("file"), uploadPrescription);
+  .post(restirctTo("user"), uploadDisk.single("file"), uploadPrescription);
 
 module.exports = router;

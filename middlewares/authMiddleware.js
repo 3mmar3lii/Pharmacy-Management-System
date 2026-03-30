@@ -9,6 +9,7 @@ const AuthMiddleware = catchAsync(async (req, res, next) => {
     token = token.split(" ")[1];
   }
   if (!token) {
+    console.log("token is",token)
     return next(new AppError(`no token found please signup`, 403));
   }
   // verfify token
