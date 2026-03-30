@@ -80,6 +80,8 @@ const userSchema = new mongoose.Schema(
     token: {
       type: String,
     },
+    passwordResetToken: String,
+    passwordResetExpires: Date,
   },
   { timestamps: true },
 );
