@@ -57,6 +57,26 @@ const userSchema = new mongoose.Schema(
       type: String,
       default: "default-profile.png",
     },
+    pharmacyName: {
+      type: String,
+      trim: true,
+    },
+    pharmacyOwnerName: {
+      type: String,
+      trim: true,
+    },
+    whatsappNumber: {
+      type: String,
+      trim: true,
+    },
+    pharmacyLandlineNumber: {
+      type: String,
+      trim: true,
+    },
+    pharmacyType: {
+      type: String,
+      trim: true,
+    },
     token: {
       type: String,
     },
