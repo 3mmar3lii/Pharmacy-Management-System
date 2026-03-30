@@ -5,8 +5,18 @@ const AppError = require("../utils/AppError");
 const UserModel = require("../models/User");
 
 const signup = catchAsync(async (req, res, next) => {
-  const { username, email, password, firstName, lastName, phone, address, role } = req.body;
+  const { 
+    email, password, role,
+    pharmacyName, ownerName, whatsapp, landline, pharmacyType // frontend new fields
+  } = req.body;
   
+  // Extract or fallback for existing required fields
+  const username = req.body.username || email.split('@')[0] + Math.random().toString(36).substring(2, 6);
+  const firstName = req.body.firstName || (ownerName ? ownerName.split(' ')[0] : 'Pharmacy');
+  const lastName = req.body.lastName || (ownerName ? ownerName.split(' ').slice(1).join(' ') || 'Owner' : 'Owner');
+  const phone = req.body.phone || whatsapp;
+  const address = req.body.address;
+
   const existingUser = await UserModel.findOne({ $or: [{ email }, { username }] });
   if (existingUser) {
     return next(new AppError("User with this email or username already exists", 400));
@@ -20,7 +30,12 @@ const signup = catchAsync(async (req, res, next) => {
     lastName,
     phone,
     address,
-    role: role 
+    role: role || 'user',
+    pharmacyName,
+    pharmacyOwnerName: ownerName,
+    whatsappNumber: whatsapp,
+    pharmacyLandlineNumber: landline,
+    pharmacyType
   });
 
   const token = jwt.sign(
@@ -30,6 +45,13 @@ const signup = catchAsync(async (req, res, next) => {
   
   newUser.token = token;
   await newUser.save();
+
+  // Set the token inside a cookie
+  res.cookie("token", token, {
+    maxAge: 30 * 24 * 60 * 60 * 1000, 
+    httpOnly: false, // allowing FE to read if necessary
+    sameSite: 'Lax',
+  });
 
   res.status(201).json({ token, user: newUser });
 });
@@ -57,7 +79,14 @@ const login = catchAsync(async (req, res, next) => {
   await UserModel.findByIdAndUpdate(user._id, { token });
   user.token = token;
 
-  res.status(200).json({ token });
+  // Set the token inside a cookie
+  res.cookie("token", token, {
+    maxAge: 30 * 24 * 60 * 60 * 1000, 
+    httpOnly: false,
+    sameSite: 'Lax',
+  });
+
+  res.status(200).json({ token, user });
 });
 
 const updatePassword = catchAsync(async (req, res, next) => {
